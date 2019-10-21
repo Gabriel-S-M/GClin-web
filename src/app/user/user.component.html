@@ -1,0 +1,154 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Cadastrar/Editar Estagiários</h4>
+          </div>
+          <div class="content">
+            <form (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      [(ngModel)]="estagiario.email"
+                      class="form-control"
+                      placeholder="Insira seu email aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Senha</label>
+                    <input
+                      type="text"
+                      name="senha"
+                      [(ngModel)]="estagiario.senha"
+                      class="form-control"
+                      placeholder="Insira a senha aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Registro Acadêmico</label>
+                    <input
+                      type="text"
+                      name="ra"
+                      [(ngModel)]="estagiario.ra"
+                      class="form-control"
+                      placeholder="Insira o R.A. aqui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input
+                      type="text"
+                      name="nome"
+                      [(ngModel)]="estagiario.nome"
+                      class="form-control"
+                      placeholder="Insira o nome aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Telefone/Contato</label>
+                    <input
+                      type="text"
+                      name="contato"
+                      [(ngModel)]="estagiario.contato"
+                      class="form-control"
+                      placeholder="Insira o contato aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Curso - Selecione</label>
+                    <select
+                      class="form-control"
+                      name="curso"
+                      [(ngModel)]="estagiario.curso"
+                    >
+                      <option value="Educação Física">Educação Física</option>
+                      <option value="Enfermagem">Enfermagem</option>
+                      <option value="Estética">Estética </option>
+                      <option value="Farmácia">Farmácia</option>
+                      <option value="Fisioterapia">Fisioterapia</option>
+                      <option value="Odontologia">Odontologia</option>
+                      <option value="Psicologia">Psicologia</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                style=" width: 20%"
+                type="submit"
+                class="btn btn-info btn-fill pull-right"
+              >
+                Salvar
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-13">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Lista de Estagiários</h4>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th class="col-md-4">Nome</th>
+                <th class="col-md-3">Curso</th>
+                <th class="col-md-2">Contato</th>
+                <th class="col-md-4">Operações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let estagiario of estagiarios | async">
+                  <td class="col-md-4">{{ estagiario.nome }}</td>
+                  <td class="col-md-3">{{ estagiario.curso }}</td>
+                  <td class="col-md-2">{{ estagiario.contato }}</td>
+                  <td class="col-md-4">
+                    <button
+                      style=" width: 49%"
+                      class="btn btn-success btn-fill"
+                      (click)="edit(estagiario, estagiario.key)"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      style="margin-left: 2%; width: 49%"
+                      class="btn btn-danger btn-fill"
+                      (click)="delete(estagiario.key)"
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

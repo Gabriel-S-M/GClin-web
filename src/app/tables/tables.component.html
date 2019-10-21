@@ -1,0 +1,131 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Cadastrar/Editar Pacientes</h4>
+          </div>
+          <div class="content">
+            <form (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nome</label>
+                    <input
+                      type="nome"
+                      name="nome"
+                      [(ngModel)]="paciente.nome"
+                      class="form-control"
+                      placeholder="Insira seu nome aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Contato</label>
+                    <input
+                      type="text"
+                      name="contato"
+                      [(ngModel)]="paciente.contato"
+                      class="form-control"
+                      placeholder="Insira o contato. aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Estagiário Responsável - Selecione</label>
+                    <select
+                      class="form-control"
+                      name="responsavel"
+                      [(ngModel)]="paciente.responsavel"
+                    >
+                      <option
+                        *ngFor="let estagiario of estagiarios | async"
+                        value="{{ estagiario.key }}"
+                      >
+                        {{ estagiario.nome }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                style=" width: 20%"
+                type="submit"
+                class="btn btn-info btn-fill pull-right"
+              >
+                Salvar
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-13">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Lista de Pacientes</h4>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th class="col-md-2">Nome</th>
+                <th class="col-md-2">Contato</th>
+                <th class="col-md-2">Responsável</th>
+                <th class="col-md-4">Operações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let paciente of pacientes | async">
+                  <td class="col-md-2">{{ paciente.nome }}</td>
+                  <td class="col-md-2">{{ paciente.contato }}</td>
+                  <td class="col-md-2">
+                    {{ paciente.responsavel }}
+                  </td>
+                  <td class="col-md-4">
+                    <button
+                      style="width: 40%; margin-right: 2%;"
+                      class="btn btn-primary btn-fill"
+                      (click)="acolhimento(paciente.key)"
+                    >
+                      Acolhimento
+                    </button>
+                    <button
+                      style="width: 40%; margin-right: 2%;"
+                      class="btn btn-secondary btn-fill"
+                      (click)="acolhimento(paciente.key)"
+                    >
+                      Evolução
+                    </button>
+                    <br />
+                    <button
+                      style=" width: 40%; margin-right: 2%; margin-top: 2%"
+                      class="btn btn-success btn-fill"
+                      (click)="edit(paciente, paciente.key)"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      style="width: 40%; margin-top: 2%"
+                      class="btn btn-danger btn-fill"
+                      (click)="delete(paciente.key)"
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
