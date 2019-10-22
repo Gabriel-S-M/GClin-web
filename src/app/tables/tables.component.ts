@@ -22,7 +22,7 @@ export class TablesComponent implements OnInit {
   paciente: Paciente;
   pacientes: Observable<any>;
   estagiarios: Observable<any>;
-  responsavel: any;
+  responsavel: Estagiario;
   key: string = "";
   constructor(
     private _pacienteDataService: PacienteDataService,
@@ -41,17 +41,27 @@ export class TablesComponent implements OnInit {
         this.paciente.nome = data.paciente.nome;
         this.paciente.contato = data.paciente.contato;
         this.paciente.responsavel = data.paciente.responsavel;
+        this.paciente.keyResponsavel = data.paciente.keyResponsavel;
         this.key = data.key;
       }
     });
   }
 
   onSubmit() {
-    if (this.key) {
-      this._pacienteService.update(this.paciente, this.key);
-    } else {
-      this._pacienteService.insert(this.paciente);
+    const paciente: Paciente = { ...this.paciente };
+
+    if (this.paciente.responsavel) {
+      const [key, responsavel] = this.paciente.responsavel.split(" _ ");
+      paciente.keyResponsavel = key;
+      paciente.responsavel = responsavel;
     }
+
+    if (this.key) {
+      this._pacienteService.update(paciente, this.key);
+    } else {
+      this._pacienteService.insert(paciente);
+    }
+
     this.paciente = new Paciente();
     this.key = null;
   }

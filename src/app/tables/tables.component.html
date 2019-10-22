@@ -43,7 +43,7 @@
                     >
                       <option
                         *ngFor="let estagiario of estagiarios | async"
-                        value="{{ estagiario.key }}"
+                        value="{{ estagiario.key }} _ {{ estagiario.nome }}"
                       >
                         {{ estagiario.nome }}
                       </option>
