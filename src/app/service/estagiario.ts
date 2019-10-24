@@ -5,4 +5,5 @@ export class Estagiario {
   contato: string;
   nome: string;
   curso: string;
+  keyAuth: string;
 }

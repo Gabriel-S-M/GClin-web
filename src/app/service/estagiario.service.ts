@@ -3,19 +3,29 @@ import { Estagiario } from "./estagiario";
 import { AngularFireDatabase } from "angularfire2/database";
 import { map } from "rxjs/operators";
 import "rxjs/add/operator/map";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable({
   providedIn: "root"
 })
 export class EstagiarioService {
-  constructor(private _angularFireDatabase: AngularFireDatabase) {}
+  user: any;
+  constructor(
+    private _angularFireDatabase: AngularFireDatabase,
+    public afAuth: AngularFireAuth
+  ) {}
 
   insert(estagiario: Estagiario) {
-    this._angularFireDatabase
-      .list("estagiarios")
-      .push(estagiario)
-      .then((result: any) => {
-        console.log(result.key);
+    this.afAuth.auth
+      .createUserWithEmailAndPassword(estagiario.email, estagiario.senha)
+      .then(c => {
+        estagiario.keyAuth = this.afAuth.auth.currentUser.uid;
+        this._angularFireDatabase
+          .list("estagiarios")
+          .push(estagiario)
+          .then((result: any) => {
+            // console.log(result.key);
+          });
       });
   }
 

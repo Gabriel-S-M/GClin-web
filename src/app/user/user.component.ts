@@ -3,7 +3,6 @@ import { EstagiarioService } from "app/service/estagiario.service";
 import { EstagiarioDataService } from "app/service/estagiario-data.service";
 import { Estagiario } from "app/service/estagiario";
 import { Observable } from "rxjs";
-import { RegistroService } from "app/service/registro.service";
 
 @Component({
   selector: "app-user",
@@ -16,8 +15,7 @@ export class UserComponent implements OnInit {
   key: string = "";
   constructor(
     private _estagiarioService: EstagiarioService,
-    private _estagiarioDataService: EstagiarioDataService,
-    private _registroService: RegistroService
+    private _estagiarioDataService: EstagiarioDataService
   ) {}
 
   ngOnInit() {
@@ -32,6 +30,7 @@ export class UserComponent implements OnInit {
         this.estagiario.contato = data.estagiario.contato;
         this.estagiario.nome = data.estagiario.nome;
         this.estagiario.curso = data.estagiario.curso;
+        this.estagiario.keyAuth = data.estagiario.keyAuth;
         this.key = data.key;
       }
     });
@@ -42,10 +41,6 @@ export class UserComponent implements OnInit {
       this._estagiarioService.update(this.estagiario, this.key);
     } else {
       this._estagiarioService.insert(this.estagiario);
-      this._registroService.registrar(
-        this.estagiario.email,
-        this.estagiario.senha
-      );
     }
     this.estagiario = new Estagiario();
     this.key = null;

@@ -43,7 +43,7 @@
                     >
                       <option
                         *ngFor="let estagiario of estagiarios | async"
-                        value="{{ estagiario.key }} _ {{ estagiario.nome }}"
+                        value="{{ estagiario.keyAuth }} _ {{ estagiario.nome }}"
                       >
                         {{ estagiario.nome }}
                       </option>
@@ -87,20 +87,20 @@
                   <td class="col-md-2">{{ paciente.nome }}</td>
                   <td class="col-md-2">{{ paciente.contato }}</td>
                   <td class="col-md-2">
-                    {{ paciente.responsavel }}
+                    {{ paciente.nomeResponsavel }}
                   </td>
                   <td class="col-md-4">
                     <button
                       style="width: 40%; margin-right: 2%;"
                       class="btn btn-primary btn-fill"
-                      (click)="acolhimento(paciente.key)"
+                      (click)="irParaAcolhimento(paciente.key)"
                     >
                       Acolhimento
                     </button>
                     <button
                       style="width: 40%; margin-right: 2%;"
                       class="btn btn-secondary btn-fill"
-                      (click)="acolhimento(paciente.key)"
+                      (click)="irParaEvolucao(paciente.key)"
                     >
                       Evolução
                     </button>
