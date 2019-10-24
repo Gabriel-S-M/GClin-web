@@ -42,6 +42,7 @@ export class TablesComponent implements OnInit {
         this.paciente.contato = data.paciente.contato;
         this.paciente.responsavel = data.paciente.responsavel;
         this.paciente.keyResponsavel = data.paciente.keyResponsavel;
+        this.paciente.nomeResponsavel = data.paciente.nomeResponsavel;
         this.key = data.key;
       }
     });
@@ -51,9 +52,9 @@ export class TablesComponent implements OnInit {
     const paciente: Paciente = { ...this.paciente };
 
     if (this.paciente.responsavel) {
-      const [key, responsavel] = this.paciente.responsavel.split(" _ ");
-      paciente.keyResponsavel = key;
-      paciente.responsavel = responsavel;
+      const [keyAuth, nome] = this.paciente.responsavel.split(" _ ");
+      paciente.keyResponsavel = keyAuth;
+      paciente.nomeResponsavel = nome;
     }
 
     if (this.key) {
@@ -73,4 +74,8 @@ export class TablesComponent implements OnInit {
   edit(paciente: Paciente, key: string) {
     this._pacienteDataService.obtemPaciente(paciente, key);
   }
+
+  irParaAcolhimento(key: string) {}
+
+  irParaEvolucao(key: string) {}
 }

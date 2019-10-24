@@ -5,5 +5,6 @@ export class Paciente {
   contato?: string;
   responsavel?: string;
   keyResponsavel?: string;
+  nomeResponsavel?: string;
   key?: string;
 }

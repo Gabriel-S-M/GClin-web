@@ -11,6 +11,8 @@ import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { HomeComponent } from "../../home/home.component";
 import { UserComponent } from "../../user/user.component";
 import { TablesComponent } from "../../tables/tables.component";
+import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
+import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 
 @NgModule({
   imports: [
@@ -22,6 +24,12 @@ import { TablesComponent } from "../../tables/tables.component";
       apiUrl: "https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE"
     })
   ],
-  declarations: [HomeComponent, UserComponent, TablesComponent]
+  declarations: [
+    HomeComponent,
+    UserComponent,
+    TablesComponent,
+    AcolhimentoComponent,
+    EvolucaoComponent
+  ]
 })
 export class AdminLayoutModule {}
