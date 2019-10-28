@@ -1,3 +1,35 @@
-<p>
-  evolucao works!
-</p>
+<button
+  style="width: 20%; float:right;  margin: 2%; ;"
+  class="btn btn-primary btn-fill"
+  (click)="voltar()"
+>
+  Voltar</button
+><br /><br />
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title" style="text-align: center; font-weight: bold;">
+              Evoluções - Paciente: {{ paciente.nome }}
+            </h4>
+          </div>
+          <div class="content">
+            <div *ngIf="listaEvolucoes.length > 0">
+              <ul class="list-group" *ngFor="let evolucao of listaEvolucoes">
+                <li class="list-group-item list-group-item-light">
+                  <b>Evolução realizada dia: </b>{{ evolucao.data }} <br />
+                  <b>Descrição: </b>{{ evolucao.descricao }}
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="listaEvolucoes.length == 0">
+              Ainda não tem nenhuma evolução registrada
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

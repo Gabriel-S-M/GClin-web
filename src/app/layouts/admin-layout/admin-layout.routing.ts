@@ -10,6 +10,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: HomeComponent },
   { path: "user", component: UserComponent },
   { path: "table", component: TablesComponent },
-  { path: "acolhimento", component: AcolhimentoComponent },
-  { path: "evolucao", component: EvolucaoComponent }
+  { path: "acolhimento/:key", component: AcolhimentoComponent },
+  { path: "evolucao/:key", component: EvolucaoComponent }
 ];

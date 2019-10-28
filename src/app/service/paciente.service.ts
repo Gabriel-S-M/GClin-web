@@ -36,6 +36,20 @@ export class PacienteService {
       );
   }
 
+  get(key: string) {
+    return this._angularFireDatabase
+      .list("paciente", ref => ref.orderByKey().equalTo(key))
+      .snapshotChanges()
+      .pipe(
+        map(changes => {
+          return changes.map(data => ({
+            key: data.payload.key,
+            ...data.payload.val()
+          }));
+        })
+      );
+  }
+
   delete(key: string) {
     this._angularFireDatabase.object(`paciente/${key}`).remove();
   }

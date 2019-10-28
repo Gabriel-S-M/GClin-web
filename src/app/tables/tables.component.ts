@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 import { Estagiario } from "app/service/estagiario";
 import { EstagiarioDataService } from "app/service/estagiario-data.service";
 import "rxjs/add/observable/of";
+import { Router } from "@angular/router";
 
 declare interface TableData {
   headerRow: string[];
@@ -27,7 +28,8 @@ export class TablesComponent implements OnInit {
   constructor(
     private _pacienteDataService: PacienteDataService,
     private _pacienteService: PacienteService,
-    private _estagiarioService: EstagiarioService
+    private _estagiarioService: EstagiarioService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -75,7 +77,11 @@ export class TablesComponent implements OnInit {
     this._pacienteDataService.obtemPaciente(paciente, key);
   }
 
-  irParaAcolhimento(key: string) {}
+  irParaAcolhimento(key: string) {
+    this._router.navigate(["/acolhimento/" + key]);
+  }
 
-  irParaEvolucao(key: string) {}
+  irParaEvolucao(key: string) {
+    this._router.navigate(["/evolucao/" + key]);
+  }
 }
