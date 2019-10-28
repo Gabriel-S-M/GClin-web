@@ -15,7 +15,9 @@ import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "environments/environment";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { NgxMaskModule, IConfig } from "ngx-mask";
 
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -26,7 +28,8 @@ import { AngularFireAuth } from "@angular/fire/auth";
     SidebarModule,
     AppRoutingModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgxMaskModule.forRoot(options)
   ],
   declarations: [AppComponent, AdminLayoutComponent],
   providers: [AngularFireAuth],
