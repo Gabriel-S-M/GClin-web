@@ -3,21 +3,16 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-
 import { AppRoutingModule } from "./app.routing";
 import { NavbarModule } from "./shared/navbar/navbar.module";
-
 import { SidebarModule } from "./sidebar/sidebar.module";
-
 import { AppComponent } from "./app.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "environments/environment";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { NgxMaskModule, IConfig } from "ngx-mask";
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -28,8 +23,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     SidebarModule,
     AppRoutingModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    NgxMaskModule.forRoot(options)
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   declarations: [AppComponent, AdminLayoutComponent],
   providers: [AngularFireAuth],

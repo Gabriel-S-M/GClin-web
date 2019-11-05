@@ -9,6 +9,7 @@
   style="width: 20%; float:right;  margin: 2%; ;"
   class="btn btn-danger btn-fill"
   (click)="gerarPDF()"
+  [disabled]="listaEvolucoes.length == 0"
 >
   Gerar PDF
 </button>
