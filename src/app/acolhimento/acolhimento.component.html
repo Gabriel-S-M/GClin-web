@@ -3,22 +3,32 @@
   class="btn btn-primary btn-fill"
   (click)="voltar()"
 >
-  Voltar</button
-><br /><br />
+  Voltar
+</button>
+<button
+  style="width: 20%; float:right;  margin: 2%; ;"
+  class="btn btn-danger btn-fill"
+  (click)="gerarPDF()"
+>
+  Gerar PDF
+</button>
+
+<br /><br />
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container-fluid" style="width: 120vh;">
     <div class="row">
       <div class="col-md-15">
         <div class="card">
           <div class="header">
             <h4 class="title" style="text-align: center; font-weight: bold;">
-              Acolhimento - Paciente: {{ paciente.nome }}
+              Acolhimento - Paciente: {{ paciente?.nome }}
             </h4>
           </div>
           <div class="content">
             <div *ngIf="listaAcolhimento.length > 0">
               <ul
                 class="list-group"
+                id="content"
                 *ngFor="let acolhimento of listaAcolhimento"
               >
                 <li class="list-group-item list-group-item-light">

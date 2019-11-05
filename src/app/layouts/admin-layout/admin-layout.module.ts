@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 import { LbdModule } from "../../lbd/lbd.module";
 import { NguiMapModule } from "@ngui/map";
@@ -13,6 +13,9 @@ import { UserComponent } from "../../user/user.component";
 import { TablesComponent } from "../../tables/tables.component";
 import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
+import { NgxMaskModule, IConfig } from "ngx-mask";
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
   imports: [
@@ -20,6 +23,8 @@ import { EvolucaoComponent } from "app/evolucao/evolucao.component";
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
+
+    NgxMaskModule.forRoot(options),
     NguiMapModule.forRoot({
       apiUrl: "https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE"
     })

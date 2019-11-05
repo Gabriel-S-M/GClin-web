@@ -5,7 +5,7 @@ import { Paciente } from "app/service/paciente";
 import { EstagiarioService } from "app/service/estagiario.service";
 import { Observable } from "rxjs";
 import { Estagiario } from "app/service/estagiario";
-import { EstagiarioDataService } from "app/service/estagiario-data.service";
+
 import "rxjs/add/observable/of";
 import { Router } from "@angular/router";
 
