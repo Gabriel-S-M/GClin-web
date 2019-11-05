@@ -23,6 +23,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
+
     NgxMaskModule.forRoot(options),
     NguiMapModule.forRoot({
       apiUrl: "https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE"
