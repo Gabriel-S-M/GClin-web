@@ -13,9 +13,7 @@ import { UserComponent } from "../../user/user.component";
 import { TablesComponent } from "../../tables/tables.component";
 import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
-import { NgxMaskModule, IConfig } from "ngx-mask";
-
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+import { NgxMaskModule } from "ngx-mask";
 
 @NgModule({
   imports: [
@@ -23,11 +21,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
-
-    NgxMaskModule.forRoot(options),
-    NguiMapModule.forRoot({
-      apiUrl: "https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE"
-    })
+    NgxMaskModule.forRoot({})
   ],
   declarations: [
     HomeComponent,
