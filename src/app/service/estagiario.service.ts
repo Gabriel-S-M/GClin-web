@@ -26,6 +26,9 @@ export class EstagiarioService {
           .then((result: any) => {
             // console.log(result.key);
           });
+      })
+      .catch(() => {
+        alert("Esse email já foi utilizado!");
       });
   }
 

@@ -1,5 +1,13 @@
 <div class="main-content">
   <div class="container-fluid">
+    <div class="alert alert-danger" *ngIf="!campos" role="alert">
+      Erro ao cadastrar estagiário! Todos os campos são obrigatórios! Preencha e
+      tente novamente!
+    </div>
+    <div class="alert alert-success" *ngIf="sucesso" role="alert">
+      Cadastro efetuado com sucesso!
+    </div>
+
     <div class="row">
       <div class="col-md-15">
         <div class="card">

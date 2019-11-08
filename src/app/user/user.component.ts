@@ -13,6 +13,9 @@ export class UserComponent implements OnInit {
   estagiario: Estagiario;
   estagiarios: Observable<any>;
   key: string = "";
+  campos: boolean = true;
+  sucesso: boolean = false;
+
   constructor(
     private _estagiarioService: EstagiarioService,
     private _estagiarioDataService: EstagiarioDataService
@@ -36,14 +39,38 @@ export class UserComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.key) {
-      this._estagiarioService.update(this.estagiario, this.key);
+  async onSubmit() {
+    if (
+      this.estagiario.email != null &&
+      this.estagiario.senha != null &&
+      this.estagiario.ra != null &&
+      this.estagiario.nome != null &&
+      this.estagiario.contato != null &&
+      this.estagiario.curso != null
+    ) {
+      if (this.key) {
+        this._estagiarioService.update(this.estagiario, this.key);
+      } else {
+        this._estagiarioService.insert(this.estagiario);
+      }
+      this.sucesso = true;
+      await this.delay(10000);
+      this.sucesso = false;
+      this.estagiario = new Estagiario();
+      this.key = null;
     } else {
-      this._estagiarioService.insert(this.estagiario);
+      this.campos = false;
+      await this.delay(10000);
+      this.campos = true;
     }
-    this.estagiario = new Estagiario();
-    this.key = null;
+  }
+
+  private delay(ms: number): Promise<boolean> {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(true);
+      }, ms);
+    });
   }
 
   delete(key: string) {

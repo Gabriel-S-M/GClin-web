@@ -25,6 +25,8 @@ export class TablesComponent implements OnInit {
   estagiarios: Observable<any>;
   responsavel: Estagiario;
   key: string = "";
+  campos: boolean = true;
+  sucesso: boolean = false;
   constructor(
     private _pacienteDataService: PacienteDataService,
     private _pacienteService: PacienteService,
@@ -50,7 +52,7 @@ export class TablesComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     const paciente: Paciente = { ...this.paciente };
 
     if (this.paciente.responsavel) {
@@ -59,14 +61,34 @@ export class TablesComponent implements OnInit {
       paciente.nomeResponsavel = nome;
     }
 
-    if (this.key) {
-      this._pacienteService.update(paciente, this.key);
+    if (
+      this.paciente.nome != null &&
+      this.paciente.contato != null &&
+      this.paciente.responsavel != null
+    ) {
+      if (this.key) {
+        this._pacienteService.update(paciente, this.key);
+      } else {
+        this._pacienteService.insert(paciente);
+      }
+      this.sucesso = true;
+      await this.delay(10000);
+      this.sucesso = false;
+      this.paciente = new Paciente();
+      this.key = null;
     } else {
-      this._pacienteService.insert(paciente);
+      this.campos = false;
+      await this.delay(10000);
+      this.campos = true;
     }
+  }
 
-    this.paciente = new Paciente();
-    this.key = null;
+  private delay(ms: number): Promise<boolean> {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(true);
+      }, ms);
+    });
   }
 
   delete(key: string) {
