@@ -5,8 +5,10 @@ import { UserComponent } from "../../user/user.component";
 import { TablesComponent } from "../../tables/tables.component";
 import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
+import { LoginComponent } from "app/login/login.component";
 
 export const AdminLayoutRoutes: Routes = [
+  { path: "login", component: LoginComponent },
   { path: "dashboard", component: HomeComponent },
   { path: "user", component: UserComponent },
   { path: "table", component: TablesComponent },
