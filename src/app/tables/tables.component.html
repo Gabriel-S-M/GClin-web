@@ -37,7 +37,7 @@
                       [(ngModel)]="paciente.contato"
                       class="form-control"
                       placeholder="Insira o contato aqui"
-                      mask="(00) 0000-0000"
+                      mask="(00) 000000000"
                     />
                   </div>
                 </div>
@@ -116,14 +116,24 @@
                     <button
                       style=" width: 40%; margin-right: 2%; margin-top: 2%"
                       class="btn btn-success btn-fill"
-                      (click)="edit(paciente, paciente.key)"
+                      mwlConfirmationPopover
+                      placement="left"
+                      [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage2"
+                      (confirm)="edit(paciente, paciente.key)"
+                      (cancel)="cancelClicked = true"
                     >
                       Editar
                     </button>
                     <button
                       style="width: 40%; margin-top: 2%"
                       class="btn btn-danger btn-fill"
-                      (click)="delete(paciente.key)"
+                      mwlConfirmationPopover
+                      placement="left"
+                      [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage"
+                      (confirm)="delete(paciente.key)"
+                      (cancel)="cancelClicked = true"
                     >
                       Excluir
                     </button>

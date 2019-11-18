@@ -15,6 +15,9 @@ export class UserComponent implements OnInit {
   key: string = "";
   campos: boolean = true;
   sucesso: boolean = false;
+  popoverTitle = "GClin - Faculdade Guairacá";
+  popoverMessage = "Deseja realmente exlcuir?";
+  popoverMessage2 = "Deseja realmente editar?";
 
   constructor(
     private _estagiarioService: EstagiarioService,
@@ -40,18 +43,24 @@ export class UserComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.estagiario.contato =
+      "(" +
+      this.estagiario.contato.substring(0, 2) +
+      ") " +
+      this.estagiario.contato.substring(2);
+    let estagiario: Estagiario = { ...this.estagiario };
     if (
-      this.estagiario.email != null &&
-      this.estagiario.senha != null &&
-      this.estagiario.ra != null &&
-      this.estagiario.nome != null &&
-      this.estagiario.contato != null &&
-      this.estagiario.curso != null
+      estagiario.email != null &&
+      estagiario.senha != null &&
+      estagiario.ra != null &&
+      estagiario.nome != null &&
+      estagiario.contato != null &&
+      estagiario.curso != null
     ) {
       if (this.key) {
-        this._estagiarioService.update(this.estagiario, this.key);
+        this._estagiarioService.update(estagiario, this.key);
       } else {
-        this._estagiarioService.insert(this.estagiario);
+        this._estagiarioService.insert(estagiario);
       }
       this.sucesso = true;
       await this.delay(10000);

@@ -14,6 +14,7 @@ import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "app/login/login.component";
+import { ConfirmationPopoverModule } from "angular-confirmation-popover";
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { LoginComponent } from "app/login/login.component";
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
-    NgxMaskModule.forRoot({})
+    NgxMaskModule.forRoot({}),
+    ConfirmationPopoverModule.forRoot({ confirmButtonType: "danger" })
   ],
   declarations: [
     HomeComponent,

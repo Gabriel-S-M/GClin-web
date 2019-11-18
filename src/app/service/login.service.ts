@@ -7,7 +7,7 @@ import { EventEmitter } from "@angular/core";
   providedIn: "root"
 })
 export class LoginService {
-  private adminAutenticado: boolean = false;
+  adminAutenticado: boolean = false;
   mostrarMenuEmitter = new EventEmitter<boolean>();
 
   constructor(private _router: Router) {}
@@ -21,5 +21,9 @@ export class LoginService {
       this.adminAutenticado = false;
       this.mostrarMenuEmitter.emit(false);
     }
+  }
+
+  adminEstaAutenticado(): boolean {
+    return this.adminAutenticado;
   }
 }

@@ -77,7 +77,7 @@
                       [(ngModel)]="estagiario.contato"
                       class="form-control"
                       placeholder="Insira o contato aqui"
-                      mask="(00) 0000-0000"
+                      mask="(00) 000000000"
                     />
                   </div>
                 </div>
@@ -140,14 +140,24 @@
                     <button
                       style=" width: 49%"
                       class="btn btn-success btn-fill"
-                      (click)="edit(estagiario, estagiario.key)"
+                      mwlConfirmationPopover
+                      placement="left"
+                      [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage2"
+                      (confirm)="edit(estagiario, estagiario.key)"
+                      (cancel)="cancelClicked = true"
                     >
                       Editar
                     </button>
                     <button
                       style="margin-left: 2%; width: 49%"
                       class="btn btn-danger btn-fill"
-                      (click)="delete(estagiario.key)"
+                      mwlConfirmationPopover
+                      placement="left"
+                      [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage"
+                      (confirm)="delete(estagiario.key)"
+                      (cancel)="cancelClicked = true"
                     >
                       Excluir
                     </button>

@@ -4,6 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
+import { AuthGuardService } from "./service/auth-guard.service";
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: "",
     component: AdminLayoutComponent,
+    canActivateChild: [AuthGuardService],
     children: [
       {
         path: "",

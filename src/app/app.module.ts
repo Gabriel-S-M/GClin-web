@@ -12,6 +12,8 @@ import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "environments/environment";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { AuthGuardService } from "./service/auth-guard.service";
+import { ConfirmationPopoverModule } from "angular-confirmation-popover";
 
 @NgModule({
   imports: [
@@ -23,10 +25,11 @@ import { AngularFireAuth } from "@angular/fire/auth";
     SidebarModule,
     AppRoutingModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ConfirmationPopoverModule.forRoot({ confirmButtonType: "danger" })
   ],
   declarations: [AppComponent, AdminLayoutComponent],
-  providers: [AngularFireAuth],
+  providers: [AngularFireAuth, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

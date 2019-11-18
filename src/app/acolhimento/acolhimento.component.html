@@ -8,7 +8,7 @@
 <button
   style="width: 20%; float:right;  margin: 2%; ;"
   class="btn btn-danger btn-fill"
-  (click)="gerarPDF()"
+  (click)="downloadPDF()"
   [disabled]="listaAcolhimento.length == 0"
 >
   Gerar PDF
@@ -16,12 +16,12 @@
 
 <br /><br />
 <div class="main-content">
-  <div class="container-fluid" style="width: 120vh;">
+  <div class="container-fluid" #toPDF style="width: 120vh;">
     <div class="row">
       <div class="col-md-15">
         <div class="card">
           <div class="header">
-            <h4 class="title" style="text-align: center; font-weight: bold;">
+            <h4 class="title" style="font-weight: bold;">
               Acolhimento - Paciente: {{ paciente?.nome }}
             </h4>
           </div>
@@ -54,14 +54,13 @@
                   <b>Situação Familiar</b> <br />
                   <b>Estado Civil:</b> {{ acolhimento.estadocivil }} &nbsp;
                   &nbsp; - &nbsp; &nbsp; <b>Mora com:</b>
-                  {{ acolhimento.quemmora }} &nbsp; &nbsp; - &nbsp; &nbsp;
+                  {{ acolhimento.quemmora }} <br />
                   <b>Quantidade de Pessoas:</b>
-                  {{ acolhimento.qtdpessoas }} <br />
-                  <b>Moradia:</b> {{ acolhimento.moradia }} &nbsp; &nbsp; -
-                  &nbsp; &nbsp; <b>Água:</b> {{ acolhimento.agua }} &nbsp;
-                  &nbsp; - &nbsp; &nbsp; <b>Luz:</b>
-                  {{ acolhimento.luz }} &nbsp; &nbsp; - &nbsp; &nbsp;
-                  <b>Esgoto:</b> {{ acolhimento.esgoto }} <br />
+                  {{ acolhimento.qtdpessoas }} &nbsp; &nbsp; - &nbsp; &nbsp;
+                  <b>Moradia:</b> {{ acolhimento.moradia }}<br />
+                  <b>Água:</b> {{ acolhimento.agua }} &nbsp; &nbsp; - &nbsp;
+                  &nbsp; <b>Luz:</b> {{ acolhimento.luz }} &nbsp; &nbsp; -
+                  &nbsp; &nbsp; <b>Esgoto:</b> {{ acolhimento.esgoto }} <br />
                   <b>Pavimento:</b> {{ acolhimento.pavimento }}&nbsp; &nbsp; -
                   &nbsp; &nbsp; <b>Coleta de Lixo:</b>
                   {{ acolhimento.lixo }}
