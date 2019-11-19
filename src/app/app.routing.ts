@@ -15,7 +15,6 @@ const routes: Routes = [
   {
     path: "",
     component: AdminLayoutComponent,
-    canActivateChild: [AuthGuardService],
     children: [
       {
         path: "",

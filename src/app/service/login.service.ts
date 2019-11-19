@@ -23,7 +23,7 @@ export class LoginService {
     }
   }
 
-  adminEstaAutenticado(): boolean {
-    return this.adminAutenticado;
-  }
+  // adminEstaAutenticado(): boolean {
+  //   return this.adminAutenticado;
+  // }
 }

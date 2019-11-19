@@ -19,23 +19,25 @@ export class AuthGuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    if (this._loginService.adminEstaAutenticado) {
-      console.log(this._loginService.adminEstaAutenticado);
+    console.log(this._loginService.adminAutenticado);
+
+    if (this._loginService.adminAutenticado) {
       return true;
+    } else {
+      this._router.navigate(["/login"]);
+      return false;
     }
-    this._router.navigate(["/login"]);
-    return false;
   }
 
-  canActivateChild(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | boolean {
-    if (this._loginService.adminEstaAutenticado) {
-      console.log(this._loginService.adminEstaAutenticado);
-      return true;
-    }
-    this._router.navigate(["/login"]);
-    return false;
-  }
+  // canActivateChild(
+  //   route: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot
+  // ): Observable<boolean> | boolean {
+  //   if (this._loginService.adminEstaAutenticado) {
+  //     console.log(this._loginService.adminEstaAutenticado);
+  //     return true;
+  //   }
+  //   this._router.navigate(["/login"]);
+  //   return false;
+  // }
 }
