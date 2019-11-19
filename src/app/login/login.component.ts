@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   login: any;
   senha: any;
   user: Admin;
+  erro: boolean = false;
 
   constructor(private _loginService: LoginService) {
     this.user = new Admin();
@@ -21,6 +22,10 @@ export class LoginComponent implements OnInit {
   logar() {
     this.user.login = this.login;
     this.user.senha = this.senha;
-    this._loginService.fazerLogin(this.user);
+    if (this._loginService.fazerLogin(this.user)) {
+      console.log("logou");
+    } else {
+      this.erro = true;
+    }
   }
 }

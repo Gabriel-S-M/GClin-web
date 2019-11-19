@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from "app/service/login.service";
+import { Router } from "@angular/router";
 
 declare const $: any;
 
@@ -23,7 +24,7 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   mostrarMenu: boolean = false;
 
-  constructor(private _loginService: LoginService) {}
+  constructor(private _loginService: LoginService, private _router: Router) {}
 
   ngOnInit() {
     this._loginService.mostrarMenuEmitter.subscribe(mostrar => {
@@ -36,5 +37,11 @@ export class SidebarComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  logout() {
+    this.mostrarMenu = false;
+    this._loginService.adminAutenticado = false;
+    this._router.navigate(["/login"]);
   }
 }
