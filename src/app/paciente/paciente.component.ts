@@ -16,10 +16,10 @@ declare interface TableData {
 
 @Component({
   selector: "app-tables",
-  templateUrl: "./tables.component.html",
-  styleUrls: ["./tables.component.css"]
+  templateUrl: "./paciente.component.html",
+  styleUrls: ["./paciente.component.css"]
 })
-export class TablesComponent implements OnInit {
+export class PacienteComponent implements OnInit {
   paciente: Paciente;
   pacientes: Observable<any>;
   estagiarios: Observable<any>;

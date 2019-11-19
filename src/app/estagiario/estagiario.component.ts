@@ -6,10 +6,10 @@ import { Observable } from "rxjs";
 
 @Component({
   selector: "app-user",
-  templateUrl: "./user.component.html",
-  styleUrls: ["./user.component.css"]
+  templateUrl: "./estagiario.component.html",
+  styleUrls: ["./estagiario.component.css"]
 })
-export class UserComponent implements OnInit {
+export class EstagiarioComponent implements OnInit {
   estagiario: Estagiario;
   estagiarios: Observable<any>;
   key: string = "";

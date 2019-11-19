@@ -1,8 +1,8 @@
 import { Routes } from "@angular/router";
 
 import { HomeComponent } from "../../home/home.component";
-import { UserComponent } from "../../user/user.component";
-import { TablesComponent } from "../../tables/tables.component";
+import { EstagiarioComponent } from "../../estagiario/estagiario.component";
+import { PacienteComponent } from "../../paciente/paciente.component";
 import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { LoginComponent } from "app/login/login.component";
@@ -15,10 +15,14 @@ export const AdminLayoutRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuardService]
   },
-  { path: "user", component: UserComponent, canActivate: [AuthGuardService] },
   {
-    path: "table",
-    component: TablesComponent,
+    path: "estagiario",
+    component: EstagiarioComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: "paciente",
+    component: PacienteComponent,
     canActivate: [AuthGuardService]
   },
   {

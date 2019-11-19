@@ -8,8 +8,8 @@ import { LbdModule } from "../../lbd/lbd.module";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 
 import { HomeComponent } from "../../home/home.component";
-import { UserComponent } from "../../user/user.component";
-import { TablesComponent } from "../../tables/tables.component";
+import { EstagiarioComponent } from "../../estagiario/estagiario.component";
+import { PacienteComponent } from "../../paciente/paciente.component";
 import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { NgxMaskModule } from "ngx-mask";
@@ -28,8 +28,8 @@ import { ConfirmationPopoverModule } from "angular-confirmation-popover";
   declarations: [
     HomeComponent,
     LoginComponent,
-    UserComponent,
-    TablesComponent,
+    EstagiarioComponent,
+    PacienteComponent,
     AcolhimentoComponent,
     EvolucaoComponent
   ]
