@@ -1,12 +1,12 @@
 <div class="sidebar-wrapper" *ngIf="mostrarMenu">
-  <div class="logo" style="height: 20vh;">
+  <div class="logo" style="height: 24vh;">
     <div class="logo-img">
       <img src="/assets/img/app-clinica.png" style="width: 17vw;" />
     </div>
   </div>
   <ul class="nav responsive-nav">
     <li *ngIf="isMobileMenu()">
-      <a>
+      <a (click)="logout()">
         <p>Sair</p>
       </a>
     </li>

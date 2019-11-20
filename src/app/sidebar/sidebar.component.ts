@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from "app/service/login.service";
+import { Router } from "@angular/router";
 
 declare const $: any;
 
@@ -11,8 +12,8 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   { path: "/dashboard", title: "Painel", icon: "pe-7s-date", class: "" },
-  { path: "/user", title: "Estagiários", icon: "pe-7s-user", class: "" },
-  { path: "/table", title: "Pacientes", icon: "pe-7s-id", class: "" }
+  { path: "/estagiario", title: "Estagiários", icon: "pe-7s-user", class: "" },
+  { path: "/paciente", title: "Pacientes", icon: "pe-7s-id", class: "" }
 ];
 
 @Component({
@@ -23,7 +24,7 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   mostrarMenu: boolean = false;
 
-  constructor(private _loginService: LoginService) {}
+  constructor(private _loginService: LoginService, private _router: Router) {}
 
   ngOnInit() {
     this._loginService.mostrarMenuEmitter.subscribe(mostrar => {
@@ -36,5 +37,11 @@ export class SidebarComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  logout() {
+    this.mostrarMenu = false;
+    this._loginService.adminAutenticado = false;
+    this._router.navigate(["/login"]);
   }
 }

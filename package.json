@@ -24,6 +24,7 @@
     "@angular/router": "7.2.12",
     "@ngui/map": "0.30.3",
     "@types/googlemaps": "3.30.19",
+    "angular-confirmation-popover": "^4.2.1",
     "angularfire2": "^5.2.1",
     "animate.css": "3.7.0",
     "arrive": "2.4.1",

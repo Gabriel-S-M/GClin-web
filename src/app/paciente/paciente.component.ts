@@ -16,10 +16,10 @@ declare interface TableData {
 
 @Component({
   selector: "app-tables",
-  templateUrl: "./tables.component.html",
-  styleUrls: ["./tables.component.css"]
+  templateUrl: "./paciente.component.html",
+  styleUrls: ["./paciente.component.css"]
 })
-export class TablesComponent implements OnInit {
+export class PacienteComponent implements OnInit {
   paciente: Paciente;
   pacientes: Observable<any>;
   estagiarios: Observable<any>;
@@ -27,6 +27,9 @@ export class TablesComponent implements OnInit {
   key: string = "";
   campos: boolean = true;
   sucesso: boolean = false;
+  popoverTitle = "GClin - Faculdade Guairacá";
+  popoverMessage = "Deseja realmente exlcuir?";
+  popoverMessage2 = "Deseja realmente editar?";
   constructor(
     private _pacienteDataService: PacienteDataService,
     private _pacienteService: PacienteService,
@@ -53,7 +56,13 @@ export class TablesComponent implements OnInit {
   }
 
   async onSubmit() {
-    const paciente: Paciente = { ...this.paciente };
+    this.paciente.contato =
+      "(" +
+      this.paciente.contato.substring(0, 2) +
+      ") " +
+      this.paciente.contato.substring(2);
+
+    let paciente: Paciente = { ...this.paciente };
 
     if (this.paciente.responsavel) {
       const [keyAuth, nome] = this.paciente.responsavel.split(" _ ");

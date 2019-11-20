@@ -8,12 +8,13 @@ import { LbdModule } from "../../lbd/lbd.module";
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 
 import { HomeComponent } from "../../home/home.component";
-import { UserComponent } from "../../user/user.component";
-import { TablesComponent } from "../../tables/tables.component";
+import { EstagiarioComponent } from "../../estagiario/estagiario.component";
+import { PacienteComponent } from "../../paciente/paciente.component";
 import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "app/login/login.component";
+import { ConfirmationPopoverModule } from "angular-confirmation-popover";
 
 @NgModule({
   imports: [
@@ -21,13 +22,14 @@ import { LoginComponent } from "app/login/login.component";
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     LbdModule,
-    NgxMaskModule.forRoot({})
+    NgxMaskModule.forRoot({}),
+    ConfirmationPopoverModule.forRoot({ confirmButtonType: "danger" })
   ],
   declarations: [
     HomeComponent,
     LoginComponent,
-    UserComponent,
-    TablesComponent,
+    EstagiarioComponent,
+    PacienteComponent,
     AcolhimentoComponent,
     EvolucaoComponent
   ]
