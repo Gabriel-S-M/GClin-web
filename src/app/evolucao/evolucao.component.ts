@@ -44,7 +44,7 @@ export class EvolucaoComponent implements OnInit {
     });
   }
   voltar() {
-    this._router.navigate(["/table"]);
+    this._router.navigate(["/paciente"]);
   }
 
   gerarPDF() {

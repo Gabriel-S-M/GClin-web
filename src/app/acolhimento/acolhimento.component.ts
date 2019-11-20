@@ -47,7 +47,7 @@ export class AcolhimentoComponent implements OnInit {
   }
 
   voltar() {
-    this._router.navigate(["/table"]);
+    this._router.navigate(["/paciente"]);
   }
 
   downloadPDF() {
