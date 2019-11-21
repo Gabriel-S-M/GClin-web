@@ -8,6 +8,7 @@ import { Estagiario } from "app/service/estagiario";
 
 import "rxjs/add/observable/of";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 declare interface TableData {
   headerRow: string[];
@@ -34,7 +35,8 @@ export class PacienteComponent implements OnInit {
     private _pacienteDataService: PacienteDataService,
     private _pacienteService: PacienteService,
     private _estagiarioService: EstagiarioService,
-    private _router: Router
+    private _router: Router,
+    private _http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -46,6 +48,17 @@ export class PacienteComponent implements OnInit {
       if (data.paciente && data.key) {
         this.paciente = new Paciente();
         this.paciente.nome = data.paciente.nome;
+        this.paciente.cpf = data.paciente.cpf;
+        this.paciente.rg = data.paciente.rg;
+        this.paciente.nascimento = data.paciente.nascimento;
+        this.paciente.sus = data.paciente.sus;
+        this.paciente.pai = data.paciente.pai;
+        this.paciente.mae = data.paciente.mae;
+        this.paciente.cep = data.paciente.cep;
+        this.paciente.rua = data.paciente.rua;
+        this.paciente.numero = data.paciente.numero;
+        this.paciente.cidade = data.paciente.cidade;
+        this.paciente.bairro = data.paciente.bairro;
         this.paciente.contato = data.paciente.contato;
         this.paciente.responsavel = data.paciente.responsavel;
         this.paciente.keyResponsavel = data.paciente.keyResponsavel;
@@ -73,7 +86,18 @@ export class PacienteComponent implements OnInit {
     if (
       this.paciente.nome != null &&
       this.paciente.contato != null &&
-      this.paciente.responsavel != null
+      this.paciente.responsavel != null &&
+      this.paciente.bairro != null &&
+      this.paciente.cep != null &&
+      this.paciente.cidade != null &&
+      this.paciente.mae != null && 
+      this.paciente.rua != null &&
+      this.paciente.pai != null &&
+      this.paciente.cpf != null &&
+      this.paciente.sus != null &&
+      this.paciente.rg != null && 
+      this.paciente.nascimento != null &&
+      this.paciente.numero != null
     ) {
       if (this.key) {
         this._pacienteService.update(paciente, this.key);
@@ -81,13 +105,13 @@ export class PacienteComponent implements OnInit {
         this._pacienteService.insert(paciente);
       }
       this.sucesso = true;
-      await this.delay(10000);
+      await this.delay(3000);
       this.sucesso = false;
       this.paciente = new Paciente();
       this.key = null;
     } else {
       this.campos = false;
-      await this.delay(10000);
+      await this.delay(3000);
       this.campos = true;
     }
   }
@@ -114,5 +138,21 @@ export class PacienteComponent implements OnInit {
 
   irParaEvolucao(key: string) {
     this._router.navigate(["/evolucao/" + key]);
+  }
+
+  buscaCep(cep: string) {
+    console.log("teste");
+    if (cep !== " ") {
+      const validaCep = /^[0-9]{8}$/;
+      if (validaCep.test(cep)) {
+        this._http.get(`//viacep.com.br/ws/${cep}/json`).subscribe(dados => {
+          let dadosQuebrados = JSON.parse(JSON.stringify(dados));
+          console.log(dadosQuebrados.logradouro);
+          this.paciente.rua = dadosQuebrados.logradouro;
+          this.paciente.bairro = dadosQuebrados.bairro;
+          this.paciente.cidade = dadosQuebrados.localidade;
+        });
+      }
+    }
   }
 }

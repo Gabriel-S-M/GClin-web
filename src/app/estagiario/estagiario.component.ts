@@ -63,13 +63,13 @@ export class EstagiarioComponent implements OnInit {
         this._estagiarioService.insert(estagiario);
       }
       this.sucesso = true;
-      await this.delay(10000);
+      await this.delay(3000);
       this.sucesso = false;
       this.estagiario = new Estagiario();
       this.key = null;
     } else {
       this.campos = false;
-      await this.delay(10000);
+      await this.delay(3000);
       this.campos = true;
     }
   }

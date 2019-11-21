@@ -7,6 +7,7 @@
     <div class="alert alert-success" *ngIf="sucesso" role="alert">
       Cadastro efetuado com sucesso!
     </div>
+
     <div class="row">
       <div class="col-md-15">
         <div class="card">
@@ -18,13 +19,90 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Nome</label>
+                    <label for="exampleInputEmail1">Nome Completo</label>
                     <input
                       type="nome"
-                      name="nome"
+                      name="paciente.nome"
                       [(ngModel)]="paciente.nome"
                       class="form-control"
-                      placeholder="Insira seu nome aqui"
+                      placeholder="Insira o nome completo aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nome do Pai</label>
+                    <input
+                      type="nome"
+                      name="paciente.pai"
+                      [(ngModel)]="paciente.pai"
+                      class="form-control"
+                      placeholder="Insira o nome do pai aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nome da Mãe</label>
+                    <input
+                      type="nome"
+                      name="paciente.mae"
+                      [(ngModel)]="paciente.mae"
+                      class="form-control"
+                      placeholder="Insira o nome da mãe aqui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">CPF</label>
+                    <input
+                      type="nome"
+                      name="paciente.cpf"
+                      [(ngModel)]="paciente.cpf"
+                      class="form-control"
+                      placeholder="Insira o CPF aqui"
+                      mask="000.000.000-00"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">RG</label>
+                    <input
+                      type="nome"
+                      name="paciente.rg"
+                      [(ngModel)]="paciente.rg"
+                      class="form-control"
+                      placeholder="Insira o RG aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Cartão SUS</label>
+                    <input
+                      type="nome"
+                      name="paciente.sus"
+                      [(ngModel)]="paciente.sus"
+                      class="form-control"
+                      placeholder="Insira o número aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Data de Nascimento</label>
+                    <input
+                      type="nome"
+                      name="paciente.nascimento"
+                      class="form-control"
+                      [(ngModel)]="paciente.nascimento"
+                      placeholder="dd/mm/aaaa"
+                      mask="00/00/0000"
                     />
                   </div>
                 </div>
@@ -33,14 +111,83 @@
                     <label>Contato</label>
                     <input
                       type="text"
-                      name="contato"
+                      name="paciente.contato"
                       [(ngModel)]="paciente.contato"
                       class="form-control"
-                      placeholder="Insira o contato aqui"
+                      placeholder="(42)12345678x"
                       mask="(00) 000000000"
                     />
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">CEP</label>
+                    <input
+                      type="nome"
+                      name="paciente.cep"
+                      [(ngModel)]="paciente.cep"
+                      class="form-control"
+                      placeholder="Insira o CEP aqui"
+                      mask="00000 - 000"
+                      (blur)="buscaCep(paciente.cep)"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Rua</label>
+                    <input
+                      type="nome"
+                      name="paciente.rua"
+                      [(ngModel)]="paciente.rua"
+                      class="form-control"
+                      placeholder="Insira a rua aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Número</label>
+                    <input
+                      type="nome"
+                      name="paciente.numero"
+                      [(ngModel)]="paciente.numero"
+                      class="form-control"
+                      placeholder="Num"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Cidade</label>
+                    <input
+                      type="text"
+                      name="paciente.cidade"
+                      [(ngModel)]="paciente.cidade"
+                      class="form-control"
+                      placeholder="Insira a cidade aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Bairro</label>
+                    <input
+                      type="text"
+                      name="paciente.bairro"
+                      [(ngModel)]="paciente.bairro"
+                      class="form-control"
+                      placeholder="Insira o bairro aqui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4"></div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Estagiário Responsável - Selecione</label>
@@ -80,7 +227,23 @@
       <div class="col-md-13">
         <div class="card">
           <div class="header">
-            <h4 class="title">Lista de Pacientes</h4>
+            <div class="row">
+              <div class="col-md-5">
+                <h4 class="title">Lista de Pacientes</h4>
+              </div>
+
+              <div class="col-md-5">
+                <input
+                  style=" width: 100%; "
+                  type="text"
+                  name="busca"
+                  [(ngModel)]="busca"
+                  class="form-control"
+                  placeholder="Insira o nome do paciente aqui"
+                />
+              </div>
+            </div>
+            <br />
           </div>
           <div class="content table-responsive table-full-width">
             <table class="table table-hover table-striped">

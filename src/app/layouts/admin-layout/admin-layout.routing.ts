@@ -22,8 +22,8 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "paciente",
-    component: PacienteComponent,
-    canActivate: [AuthGuardService]
+    component: PacienteComponent
+    //canActivate: [AuthGuardService]
   },
   {
     path: "acolhimento/:key",
