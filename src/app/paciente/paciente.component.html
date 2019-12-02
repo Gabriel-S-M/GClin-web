@@ -185,16 +185,16 @@
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Estagiário Responsável - Selecione</label>
                     <select
+                      multiple="true"
                       class="form-control"
                       name="responsavel"
-                      [(ngModel)]="paciente.responsavel"
+                      [(ngModel)]="paciente.responsaveis"
                     >
                       <option
                         *ngFor="let estagiario of estagiarios | async"
@@ -224,7 +224,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-13">
+      <div class="col-md-14">
         <div class="card">
           <div class="header">
             <div class="row">
@@ -250,34 +250,23 @@
               <thead>
                 <th class="col-md-2">Nome</th>
                 <th class="col-md-2">Contato</th>
-                <th class="col-md-2">Responsável</th>
-                <th class="col-md-4">Operações</th>
+                <th class="col-md-2">Responsáveis</th>
+                <th class="col-md-6">Operações</th>
               </thead>
               <tbody>
                 <tr *ngFor="let paciente of pacientes | async">
                   <td class="col-md-2">{{ paciente.nome }}</td>
                   <td class="col-md-2">{{ paciente.contato }}</td>
                   <td class="col-md-2">
-                    {{ paciente.nomeResponsavel }}
+                    <ul>
+                      <li *ngFor="let resp of paciente.responsaveis">
+                        {{ this.converte(resp) }}
+                      </li>
+                    </ul>
                   </td>
-                  <td class="col-md-4">
+                  <td class="col-md-6">
                     <button
-                      style="width: 40%; margin-right: 2%;"
-                      class="btn btn-primary btn-fill"
-                      (click)="irParaAcolhimento(paciente.key)"
-                    >
-                      Acolhimento
-                    </button>
-                    <button
-                      style="width: 40%; margin-right: 2%;"
-                      class="btn btn-secondary btn-fill"
-                      (click)="irParaEvolucao(paciente.key)"
-                    >
-                      Evolução
-                    </button>
-                    <br />
-                    <button
-                      style=" width: 40%; margin-right: 2%; margin-top: 2%"
+                      style=" width: 46%; margin-right: 2%; margin-bottom: 2%"
                       class="btn btn-success btn-fill"
                       mwlConfirmationPopover
                       placement="left"
@@ -289,7 +278,7 @@
                       Editar
                     </button>
                     <button
-                      style="width: 40%; margin-top: 2%"
+                      style="width: 46%; margin-bottom: 2%"
                       class="btn btn-danger btn-fill"
                       mwlConfirmationPopover
                       placement="left"
@@ -300,6 +289,28 @@
                     >
                       Excluir
                     </button>
+                    <button
+                      style="width: 30%; margin-right: 2%;"
+                      class="btn btn-primary btn-fill"
+                      (click)="irParaAcolhimento(paciente.key)"
+                    >
+                      Acolhimento
+                    </button>
+                    <button
+                      style="width: 30%; margin-right: 2%;"
+                      class="btn btn-secondary btn-fill"
+                      (click)="irParaEvolucao(paciente.key)"
+                    >
+                      Evolução
+                    </button>
+                    <button
+                      style="width: 30%; margin-right: 2%;"
+                      class="btn btn-warning btn-fill"
+                      (click)="irParaAvaliacao(paciente.key)"
+                    >
+                      Avaliação
+                    </button>
+                    <br />
                   </td>
                 </tr>
               </tbody>

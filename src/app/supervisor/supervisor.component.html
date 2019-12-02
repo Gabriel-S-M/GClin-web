@@ -1,0 +1,143 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="alert alert-danger" *ngIf="!campos" role="alert">
+      Erro ao cadastrar supervisor! Todos os campos são obrigatórios! Preencha e
+      tente novamente!
+    </div>
+    <div class="alert alert-success" *ngIf="sucesso" role="alert">
+      Cadastro efetuado com sucesso!
+    </div>
+
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Cadastrar/Editar Supervisores</h4>
+          </div>
+          <div class="content">
+            <form (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      [(ngModel)]="supervisor.email"
+                      class="form-control"
+                      placeholder="Insira seu email aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Senha</label>
+                    <input
+                      type="text"
+                      name="senha"
+                      [(ngModel)]="supervisor.senha"
+                      class="form-control"
+                      placeholder="Insira a senha aqui"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input
+                      type="text"
+                      name="nome"
+                      [(ngModel)]="supervisor.nome"
+                      class="form-control"
+                      placeholder="Insira o nome aqui"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Telefone/Contato</label>
+                    <input
+                      type="text"
+                      name="contato"
+                      [(ngModel)]="supervisor.contato"
+                      class="form-control"
+                      placeholder="Insira o contato aqui"
+                      mask="(00) 000000000"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button
+                style=" width: 20%"
+                type="submit"
+                class="btn btn-info btn-fill pull-right"
+              >
+                Salvar
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-13">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Lista de Supevisores</h4>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th class="col-md-4">Nome</th>
+                <th class="col-md-3">Email</th>
+                <th class="col-md-2">Contato</th>
+                <th class="col-md-4">Operações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let supervisor of supervisores | async">
+                  <td class="col-md-4">{{ supervisor.nome }}</td>
+                  <td class="col-md-3">{{ supervisor.email }}</td>
+                  <td class="col-md-2">{{ supervisor.contato }}</td>
+                  <td class="col-md-4">
+                    <button
+                      style=" width: 49%"
+                      class="btn btn-success btn-fill"
+                      mwlConfirmationPopover
+                      placement="left"
+                      [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage2"
+                      (confirm)="edit(supervisor, supervisor.key)"
+                      (cancel)="cancelClicked = true"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      style="margin-left: 2%; width: 49%"
+                      class="btn btn-danger btn-fill"
+                      mwlConfirmationPopover
+                      placement="left"
+                      [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage"
+                      (confirm)="delete(supervisor.key)"
+                      (cancel)="cancelClicked = true"
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

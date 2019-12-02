@@ -45,7 +45,7 @@ export class AcolhimentoComponent implements OnInit {
       }
     });
   }
-
+ 
   voltar() {
     this._router.navigate(["/paciente"]);
   }

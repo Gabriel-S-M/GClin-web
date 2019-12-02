@@ -4,16 +4,11 @@ import { PacienteDataService } from "app/service/paciente-data.service";
 import { Paciente } from "app/service/paciente";
 import { EstagiarioService } from "app/service/estagiario.service";
 import { Observable } from "rxjs";
-import { Estagiario } from "app/service/estagiario";
 
 import "rxjs/add/observable/of";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-
-declare interface TableData {
-  headerRow: string[];
-  dataRows: string[][];
-}
+import { ThrowStmt } from "@angular/compiler";
 
 @Component({
   selector: "app-tables",
@@ -24,7 +19,7 @@ export class PacienteComponent implements OnInit {
   paciente: Paciente;
   pacientes: Observable<any>;
   estagiarios: Observable<any>;
-  responsavel: Estagiario;
+  listaResponsaveis: any[] = [];
   key: string = "";
   campos: boolean = true;
   sucesso: boolean = false;
@@ -60,42 +55,37 @@ export class PacienteComponent implements OnInit {
         this.paciente.cidade = data.paciente.cidade;
         this.paciente.bairro = data.paciente.bairro;
         this.paciente.contato = data.paciente.contato;
-        this.paciente.responsavel = data.paciente.responsavel;
-        this.paciente.keyResponsavel = data.paciente.keyResponsavel;
-        this.paciente.nomeResponsavel = data.paciente.nomeResponsavel;
+        this.paciente.responsaveis = data.paciente.responsaveis;
+
         this.key = data.key;
       }
     });
   }
 
   async onSubmit() {
-    this.paciente.contato =
-      "(" +
-      this.paciente.contato.substring(0, 2) +
-      ") " +
-      this.paciente.contato.substring(2);
+    if (this.paciente.contato) {
+      this.paciente.contato =
+        "(" +
+        this.paciente.contato.substring(0, 2) +
+        ") " +
+        this.paciente.contato.substring(2);
+    }
 
     let paciente: Paciente = { ...this.paciente };
-
-    if (this.paciente.responsavel) {
-      const [keyAuth, nome] = this.paciente.responsavel.split(" _ ");
-      paciente.keyResponsavel = keyAuth;
-      paciente.nomeResponsavel = nome;
-    }
 
     if (
       this.paciente.nome != null &&
       this.paciente.contato != null &&
-      this.paciente.responsavel != null &&
+      this.paciente.responsaveis != null &&
       this.paciente.bairro != null &&
       this.paciente.cep != null &&
       this.paciente.cidade != null &&
-      this.paciente.mae != null && 
+      this.paciente.mae != null &&
       this.paciente.rua != null &&
       this.paciente.pai != null &&
       this.paciente.cpf != null &&
       this.paciente.sus != null &&
-      this.paciente.rg != null && 
+      this.paciente.rg != null &&
       this.paciente.nascimento != null &&
       this.paciente.numero != null
     ) {
@@ -138,6 +128,11 @@ export class PacienteComponent implements OnInit {
 
   irParaEvolucao(key: string) {
     this._router.navigate(["/evolucao/" + key]);
+  }
+
+  converte(texto: any) {
+    const [keyAuth, nome] = texto.split(" _ ");
+    return nome;
   }
 
   buscaCep(cep: string) {

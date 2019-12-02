@@ -15,6 +15,7 @@ import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "app/login/login.component";
 import { ConfirmationPopoverModule } from "angular-confirmation-popover";
+import { SupervisorComponent } from "app/supervisor/supervisor.component";
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { ConfirmationPopoverModule } from "angular-confirmation-popover";
     EstagiarioComponent,
     PacienteComponent,
     AcolhimentoComponent,
-    EvolucaoComponent
+    EvolucaoComponent,
+    SupervisorComponent
   ]
 })
 export class AdminLayoutModule {}

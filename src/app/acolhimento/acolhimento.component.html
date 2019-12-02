@@ -26,6 +26,31 @@
             </h4>
           </div>
           <div class="content">
+            <ul class="list-group" id="content">
+              <li class="list-group-item list-group-item-light">
+                <b>Dados Pessoais do Paciente</b>
+              </li>
+              <li class="list-group-item list-group-item-light">
+                <b>Nome do Pai:</b> {{ paciente?.pai }} <br />
+                <b>Nome da Mãe:</b> {{ paciente?.mae }}
+              </li>
+              <li class="list-group-item list-group-item-light">
+                <b>CPF:</b> {{ paciente?.cpf }}&nbsp; &nbsp; - &nbsp; &nbsp;
+                <b>RG:</b> {{ paciente?.rg }}&nbsp; &nbsp; - &nbsp; &nbsp;
+                <b>Cartão SUS:</b> {{ paciente?.sus }}
+                <br />
+                <b>Data de Nascimento</b> {{ paciente?.nascimento }}&nbsp;
+                &nbsp; - &nbsp; &nbsp; <b>Contato:</b> {{ paciente?.contato }}
+              </li>
+              <li class="list-group-item list-group-item-light">
+                <b>CEP:</b> {{ paciente?.cep }}&nbsp; &nbsp; - &nbsp; &nbsp;
+                <b>Rua:</b> {{ paciente?.rua }}
+                <br />
+                <b>Número:</b> {{ paciente?.numero }}&nbsp; &nbsp; - &nbsp;
+                &nbsp; <b>Bairro:</b> {{ paciente?.bairro }}&nbsp; &nbsp; -
+                &nbsp; &nbsp; <b>Cidade</b> {{ paciente?.cidade }}
+              </li>
+            </ul>
             <div *ngIf="listaAcolhimento.length > 0">
               <ul
                 class="list-group"
@@ -33,7 +58,10 @@
                 *ngFor="let acolhimento of listaAcolhimento"
               >
                 <li class="list-group-item list-group-item-light">
-                  <b>Acolhimento realizado dia: </b>{{ acolhimento.data }}
+                  <b>Dados do Acolhimento do Paciente</b> <br />
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Realizado dia: </b>{{ acolhimento.data }}
                 </li>
                 <li class="list-group-item list-group-item-light">
                   <b>Identificação do Paciente</b> <br />

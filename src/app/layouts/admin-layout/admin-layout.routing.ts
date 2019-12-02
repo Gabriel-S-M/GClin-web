@@ -7,6 +7,7 @@ import { AcolhimentoComponent } from "app/acolhimento/acolhimento.component";
 import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { LoginComponent } from "app/login/login.component";
 import { AuthGuardService } from "app/service/auth-guard.service";
+import { SupervisorComponent } from "app/supervisor/supervisor.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "login", component: LoginComponent },
@@ -22,7 +23,12 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "paciente",
-    component: PacienteComponent
+    component: PacienteComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: "supervisor",
+    component: SupervisorComponent
     //canActivate: [AuthGuardService]
   },
   {

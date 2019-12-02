@@ -43,6 +43,7 @@ export class EvolucaoComponent implements OnInit {
       }
     });
   }
+
   voltar() {
     this._router.navigate(["/paciente"]);
   }

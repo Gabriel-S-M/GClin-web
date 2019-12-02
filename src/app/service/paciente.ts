@@ -1,5 +1,3 @@
-import { Estagiario } from "./estagiario";
-
 export class Paciente {
   nome?: string;
   cpf?: string;
@@ -14,8 +12,6 @@ export class Paciente {
   cidade?: string;
   bairro?: string;
   contato?: string;
-  responsavel?: string;
-  keyResponsavel?: string;
-  nomeResponsavel?: string;
   key?: string;
+  responsaveis?: any;
 }
