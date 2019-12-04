@@ -1,3 +1,5 @@
+import { Supervisor } from "./supervisor";
+
 export class Estagiario {
   email: string;
   senha: string;
@@ -6,4 +8,5 @@ export class Estagiario {
   nome: string;
   curso: string;
   keyAuth: string;
+  supervisor: string;
 }

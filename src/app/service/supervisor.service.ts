@@ -13,17 +13,13 @@ export class SupervisorService {
   ) {}
 
   insert(supervisor: Supervisor) {
-    this.afAuth.auth
-      .createUserWithEmailAndPassword(supervisor.email, supervisor.senha)
-      .then(c => {
-        supervisor.keyAuth = this.afAuth.auth.currentUser.uid;
-        this._angularFireDatabase
-          .list("supervisor")
-          .push(supervisor)
-          .then((result: any) => {
-            // console.log(result.key);
-          });
+    this._angularFireDatabase
+      .list("supervisor")
+      .push(supervisor)
+      .then((result: any) => {
+        // console.log(result.key);
       })
+
       .catch(() => {
         alert("Esse email já foi utilizado!");
       });

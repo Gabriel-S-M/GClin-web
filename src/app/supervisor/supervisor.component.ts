@@ -34,7 +34,6 @@ export class SupervisorComponent implements OnInit {
         this.supervisor.senha = data.supervisor.senha;
         this.supervisor.contato = data.supervisor.contato;
         this.supervisor.nome = data.supervisor.nome;
-        this.supervisor.keyAuth = data.supervisor.keyAuth;
         this.key = data.key;
       }
     });

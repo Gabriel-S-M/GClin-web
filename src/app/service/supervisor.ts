@@ -3,5 +3,4 @@ export class Supervisor {
   senha: string;
   contato: string;
   nome: string;
-  keyAuth: string;
 }

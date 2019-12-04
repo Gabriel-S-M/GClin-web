@@ -18,13 +18,13 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "estagiario",
-    component: EstagiarioComponent,
-    canActivate: [AuthGuardService]
+    component: EstagiarioComponent
+    // canActivate: [AuthGuardService]
   },
   {
     path: "paciente",
-    component: PacienteComponent,
-    canActivate: [AuthGuardService]
+    component: PacienteComponent
+    //canActivate: [AuthGuardService]
   },
   {
     path: "supervisor",

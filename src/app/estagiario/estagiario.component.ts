@@ -3,6 +3,7 @@ import { EstagiarioService } from "app/service/estagiario.service";
 import { EstagiarioDataService } from "app/service/estagiario-data.service";
 import { Estagiario } from "app/service/estagiario";
 import { Observable } from "rxjs";
+import { SupervisorService } from "app/service/supervisor.service";
 
 @Component({
   selector: "app-user",
@@ -12,6 +13,7 @@ import { Observable } from "rxjs";
 export class EstagiarioComponent implements OnInit {
   estagiario: Estagiario;
   estagiarios: Observable<any>;
+  supervisores: Observable<any>;
   key: string = "";
   campos: boolean = true;
   sucesso: boolean = false;
@@ -21,12 +23,14 @@ export class EstagiarioComponent implements OnInit {
 
   constructor(
     private _estagiarioService: EstagiarioService,
-    private _estagiarioDataService: EstagiarioDataService
+    private _estagiarioDataService: EstagiarioDataService,
+    private _supervisorService: SupervisorService
   ) {}
 
   ngOnInit() {
     this.estagiario = new Estagiario();
     this.estagiarios = this._estagiarioService.getAll();
+    this.supervisores = this._supervisorService.getAll();
     this._estagiarioDataService.estagiarioAtual.subscribe(data => {
       if (data.estagiario && data.key) {
         this.estagiario = new Estagiario();
@@ -36,6 +40,7 @@ export class EstagiarioComponent implements OnInit {
         this.estagiario.contato = data.estagiario.contato;
         this.estagiario.nome = data.estagiario.nome;
         this.estagiario.curso = data.estagiario.curso;
+        this.estagiario.supervisor = data.estagiario.supervisor;
         this.estagiario.keyAuth = data.estagiario.keyAuth;
         this.key = data.key;
       }
@@ -55,7 +60,8 @@ export class EstagiarioComponent implements OnInit {
       estagiario.ra != null &&
       estagiario.nome != null &&
       estagiario.contato != null &&
-      estagiario.curso != null
+      estagiario.curso != null &&
+      estagiario.supervisor != null
     ) {
       if (this.key) {
         this._estagiarioService.update(estagiario, this.key);
