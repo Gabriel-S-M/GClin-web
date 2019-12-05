@@ -13,6 +13,7 @@ import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "app/login/login.component";
 import { ConfirmationPopoverModule } from "angular-confirmation-popover";
 import { SupervisorComponent } from "app/supervisor/supervisor.component";
+import { SupervioesComponent } from "app/supervioes/supervioes.component";
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { SupervisorComponent } from "app/supervisor/supervisor.component";
     PacienteComponent,
     AcolhimentoComponent,
     EvolucaoComponent,
-    SupervisorComponent
+    SupervisorComponent,
+    SupervioesComponent
   ]
 })
 export class AdminLayoutModule {}

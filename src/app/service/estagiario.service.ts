@@ -50,6 +50,15 @@ export class EstagiarioService {
       );
   }
 
+  buscarTodos(email: string) {
+    return this._angularFireDatabase
+      .list("estagiarios", ref => ref.orderByChild("supervisor").equalTo(email))
+      .snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+      });
+  }
+
   get(key: String) {
     return this._angularFireDatabase
       .object("estagiarios/" + key)

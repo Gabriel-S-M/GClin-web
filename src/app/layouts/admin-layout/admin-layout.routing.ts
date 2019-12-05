@@ -8,6 +8,8 @@ import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { LoginComponent } from "app/login/login.component";
 import { AuthGuardService } from "app/service/auth-guard.service";
 import { SupervisorComponent } from "app/supervisor/supervisor.component";
+import { AuthGuardService2 } from "app/service/auth-guard.service2";
+import { SupervioesComponent } from "app/supervioes/supervioes.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "login", component: LoginComponent },
@@ -18,18 +20,18 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "estagiario",
-    component: EstagiarioComponent
-    // canActivate: [AuthGuardService]
+    component: EstagiarioComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "paciente",
-    component: PacienteComponent
-    //canActivate: [AuthGuardService]
+    component: PacienteComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "supervisor",
-    component: SupervisorComponent
-    //canActivate: [AuthGuardService]
+    component: SupervisorComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "acolhimento/:key",
@@ -40,5 +42,10 @@ export const AdminLayoutRoutes: Routes = [
     path: "evolucao/:key",
     component: EvolucaoComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: "supervisoes/:supervisor",
+    component: SupervioesComponent
+    // canActivate: [AuthGuardService2]
   }
 ];

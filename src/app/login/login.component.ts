@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     this.user.login = this.login;
     this.user.senha = this.senha;
     if (this._loginService.fazerLogin(this.user)) {
-      console.log("logou");
     } else {
       this.erro = true;
     }

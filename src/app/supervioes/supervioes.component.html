@@ -1,0 +1,41 @@
+<div class="main-content">
+  <div class="container-fluid"></div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-13">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Lista de Estagiários</h4>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover table-striped">
+              <thead>
+                <th class="col-md-4">Nome</th>
+                <th class="col-md-3">Curso</th>
+                <th class="col-md-2">Contato</th>
+                <th class="col-md-4">Operações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let estagiario of estagiarios | async">
+                  <td class="col-md-4">{{ estagiario.nome }}</td>
+                  <td class="col-md-3">{{ estagiario.curso }}</td>
+                  <td class="col-md-2">{{ estagiario.contato }}</td>
+                  <td class="col-md-4">
+                    <button
+                      style=" width: 69%"
+                      class="btn btn-dark btn-fill"
+                      (click)="irParaPacientes(estagiario.keyAuth)"
+                    >
+                      Ver Pacientes
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
