@@ -190,7 +190,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Estagiário Responsável - Selecione</label>
-                    <select
+                    <!-- <select
                       multiple="true"
                       class="form-control"
                       name="responsavel"
@@ -202,9 +202,17 @@
                       >
                         {{ estagiario.nome }}
                       </option>
-                    </select>
+                    </select> -->
                   </div>
                 </div>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Selecione'"
+                  [data]="dropdownList"
+                  [(ngModel)]="paciente.responsaveis"
+                  name="paciente.responsaveis"
+                  [settings]="dropdownSettings"
+                >
+                </ng-multiselect-dropdown>
               </div>
 
               <button
@@ -260,7 +268,7 @@
                   <td class="col-md-3">
                     <ul>
                       <li *ngFor="let resp of paciente.responsaveis">
-                        {{ this.converte(resp) }}
+                        {{ resp.nome }}
                       </li>
                     </ul>
                   </td>

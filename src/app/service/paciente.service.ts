@@ -22,6 +22,19 @@ export class PacienteService {
     this._angularFireDatabase.list("paciente").update(key, paciente);
   }
 
+  updateEvolucao(keyPaciente: string, key: string, evolucao: any) {
+    this._angularFireDatabase
+      .list(`paciente/${keyPaciente}/evolucoes`)
+      .update(key, evolucao);
+  }
+
+  updateAvaliacao(keyPaciente: string, key: string, avaliacao: any) {
+    console.log(avaliacao);
+    this._angularFireDatabase
+      .list(`paciente/${keyPaciente}/avaliacoes`)
+      .update(key, avaliacao);
+  }
+
   getAll() {
     return this._angularFireDatabase
       .list("paciente")

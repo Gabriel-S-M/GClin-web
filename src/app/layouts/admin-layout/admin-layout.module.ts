@@ -14,7 +14,12 @@ import { LoginComponent } from "app/login/login.component";
 import { ConfirmationPopoverModule } from "angular-confirmation-popover";
 import { SupervisorComponent } from "app/supervisor/supervisor.component";
 import { SupervioesComponent } from "app/supervioes/supervioes.component";
-
+import { SupervisoesPacientesComponent } from "app/supervisoes-pacientes/supervisoes-pacientes.component";
+import { SupervisoesAcolhimentosComponent } from "app/supervisoes-acolhimentos/supervisoes-acolhimentos.component";
+import { SupervisoesAvaliacoesComponent } from "app/supervisoes-avaliacoes/supervisoes-avaliacoes.component";
+import { SupervisoesEvolucoesComponent } from "app/supervisoes-evolucoes/supervisoes-evolucoes.component";
+import { AvaliacaoComponent } from "app/avaliacao/avaliacao.component";
+import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +27,8 @@ import { SupervioesComponent } from "app/supervioes/supervioes.component";
     FormsModule,
     LbdModule,
     NgxMaskModule.forRoot({}),
-    ConfirmationPopoverModule.forRoot({ confirmButtonType: "danger" })
+    ConfirmationPopoverModule.forRoot({ confirmButtonType: "danger" }),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   declarations: [
     HomeComponent,
@@ -31,8 +37,13 @@ import { SupervioesComponent } from "app/supervioes/supervioes.component";
     PacienteComponent,
     AcolhimentoComponent,
     EvolucaoComponent,
+    AvaliacaoComponent,
     SupervisorComponent,
-    SupervioesComponent
+    SupervioesComponent,
+    SupervisoesPacientesComponent,
+    SupervisoesAcolhimentosComponent,
+    SupervisoesAvaliacoesComponent,
+    SupervisoesEvolucoesComponent
   ]
 })
 export class AdminLayoutModule {}

@@ -49,10 +49,7 @@ export class LoginService {
       this.list_supervisores = res;
     });
     for (let supervisor of this.list_supervisores) {
-      if (
-        supervisor.email === admin.login &&
-        supervisor.senha === admin.senha
-      ) {
+      if (supervisor.email == admin.login && supervisor.senha == admin.senha) {
         this.supervisor = supervisor.email;
         return true;
       }

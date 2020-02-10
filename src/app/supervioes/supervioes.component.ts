@@ -16,7 +16,8 @@ export class SupervioesComponent implements OnInit {
 
   constructor(
     private _estagiarioService: EstagiarioService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -30,5 +31,6 @@ export class SupervioesComponent implements OnInit {
 
   irParaPacientes(key: any) {
     console.log(key);
+    this._router.navigate(["/supervisoes-pacientes/", this.supervisor, key]);
   }
 }

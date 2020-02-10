@@ -1,0 +1,123 @@
+<button
+  style="width: 20%; float:right;  margin: 2%; ;"
+  class="btn btn-primary btn-fill"
+  (click)="voltar()"
+>
+  Voltar</button
+><br /><br />
+<div class="main-content">
+  <div class="container-fluid" style="width: 120vh;">
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title" style="font-weight: bold;">
+              Acolhimento - Paciente: {{ paciente?.nome }}
+            </h4>
+          </div>
+          <div class="content">
+            <ul class="list-group" id="content">
+              <li class="list-group-item list-group-item-light">
+                <b>Dados Pessoais do Paciente</b>
+              </li>
+              <li class="list-group-item list-group-item-light">
+                <b>Nome do Pai:</b> {{ paciente?.pai }} <br />
+                <b>Nome da Mãe:</b> {{ paciente?.mae }}
+              </li>
+              <li class="list-group-item list-group-item-light">
+                <b>CPF:</b> {{ paciente?.cpf }}&nbsp; &nbsp; - &nbsp; &nbsp;
+                <b>RG:</b> {{ paciente?.rg }}&nbsp; &nbsp; - &nbsp; &nbsp;
+                <b>Cartão SUS:</b> {{ paciente?.sus }}
+                <br />
+                <b>Data de Nascimento</b> {{ paciente?.nascimento }}&nbsp;
+                &nbsp; - &nbsp; &nbsp; <b>Contato:</b> {{ paciente?.contato }}
+              </li>
+              <li class="list-group-item list-group-item-light">
+                <b>CEP:</b> {{ paciente?.cep }}&nbsp; &nbsp; - &nbsp; &nbsp;
+                <b>Rua:</b> {{ paciente?.rua }}
+                <br />
+                <b>Número:</b> {{ paciente?.numero }}&nbsp; &nbsp; - &nbsp;
+                &nbsp; <b>Bairro:</b> {{ paciente?.bairro }}&nbsp; &nbsp; -
+                &nbsp; &nbsp; <b>Cidade</b> {{ paciente?.cidade }}
+              </li>
+            </ul>
+            <div *ngIf="listaAcolhimento.length > 0">
+              <ul
+                class="list-group"
+                id="content"
+                *ngFor="let acolhimento of listaAcolhimento"
+              >
+                <li class="list-group-item list-group-item-light">
+                  <b>Dados do Acolhimento do Paciente</b> <br />
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Realizado dia: </b>{{ acolhimento.data }}
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Identificação do Paciente</b> <br />
+                  <b>Nome: </b>{{ acolhimento.nome }} <br />
+                  <b> Idade:</b> {{ acolhimento.idade }} &nbsp; &nbsp; - &nbsp;
+                  &nbsp;
+                  <b>Sexo:</b>
+                  {{ acolhimento.sexo }}
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Dados Consulta do SUS</b> <br />
+                  <b>Posto:</b> {{ acolhimento.posto }} &nbsp; &nbsp; - &nbsp;
+                  &nbsp; <b>Área:</b> {{ acolhimento.area }} <br />
+                  <b>Diagnóstico:</b>
+                  {{ acolhimento.diagnostico }}
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Situação Familiar</b> <br />
+                  <b>Estado Civil:</b> {{ acolhimento.estadocivil }} &nbsp;
+                  &nbsp; - &nbsp; &nbsp; <b>Mora com:</b>
+                  {{ acolhimento.quemmora }} <br />
+                  <b>Quantidade de Pessoas:</b>
+                  {{ acolhimento.qtdpessoas }} &nbsp; &nbsp; - &nbsp; &nbsp;
+                  <b>Moradia:</b> {{ acolhimento.moradia }}<br />
+                  <b>Água:</b> {{ acolhimento.agua }} &nbsp; &nbsp; - &nbsp;
+                  &nbsp; <b>Luz:</b> {{ acolhimento.luz }} &nbsp; &nbsp; -
+                  &nbsp; &nbsp; <b>Esgoto:</b> {{ acolhimento.esgoto }} <br />
+                  <b>Pavimento:</b> {{ acolhimento.pavimento }}&nbsp; &nbsp; -
+                  &nbsp; &nbsp; <b>Coleta de Lixo:</b>
+                  {{ acolhimento.lixo }}
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Profissional</b> <br />
+                  <b>Escolaridade:</b> {{ acolhimento.escolaridade }} &nbsp;
+                  &nbsp; - &nbsp; &nbsp; <b>Situação Profissional:</b>
+                  {{ acolhimento.situacaoprofissional }}<br />
+                  <b>Profissão:</b> {{ acolhimento.profissao }} &nbsp; &nbsp; -
+                  &nbsp; &nbsp; <b>Salário:</b> {{ acolhimento.salario }} &nbsp;
+                  &nbsp; - &nbsp; &nbsp; <b>Benefício:</b>
+                  {{ acolhimento.beneficio }}
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Patologia e Hábitos</b> <br />
+                  <b>História Patológica:</b>
+                  {{ acolhimento.historiapatologica }} &nbsp; &nbsp; - &nbsp;
+                  &nbsp; <b>Álcool:</b>{{ acolhimento.alcool }} &nbsp; &nbsp; -
+                  &nbsp; &nbsp; <b>Cigarro: </b>{{ acolhimento.cigarro }} <br />
+                  <b>Medicamentos: </b> {{ acolhimento.medicamentos }} &nbsp;
+                  &nbsp; - &nbsp; &nbsp; <b>Exercício: </b
+                  >{{ acolhimento.exercicio }}
+                </li>
+                <li class="list-group-item list-group-item-light">
+                  <b>Encaminhamento</b> <br />
+                  <b>Sugestão Encaminhamento:</b>
+                  {{ acolhimento.sugestaoencaminhamento }} <br />
+                  <b>Motivo Encaminhamento:</b>
+                  {{ acolhimento.motivoencaminhamento }}
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="listaAcolhimento.length == 0">
+              O acolhimento ainda não foi realizado
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

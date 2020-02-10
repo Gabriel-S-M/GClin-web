@@ -1,0 +1,41 @@
+<button
+  style="width: 20%; float:right;  margin: 2%; ;"
+  class="btn btn-primary btn-fill"
+  (click)="voltar()"
+>
+  Voltar
+</button>
+<br />
+<br />
+<div class="main-content">
+  <div class="container-fluid" #toPDF>
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title" style=" font-weight: bold;">
+              Avaliações - Paciente: {{ paciente?.nome }}
+            </h4>
+          </div>
+          <div class="content ">
+            <div
+              id="content"
+              style="background-color: white;"
+              *ngIf="listaAvaliacoes.length > 0"
+            >
+              <ul class="list-group" *ngFor="let avaliacao of listaAvaliacoes">
+                <li class="list-group-item list-group-item-light">
+                  <b>Avaliação do setor: </b>{{ avaliacao.setor }} <br />
+                  <img src="{{ avaliacao.dados.url }}" class="img" />
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="listaAvaliacoes.length == 0">
+              Ainda não tem nenhuma avaliação registrada
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

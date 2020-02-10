@@ -10,6 +10,8 @@ import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { ThrowStmt } from "@angular/compiler";
 
+import { IDropdownSettings } from "ng-multiselect-dropdown";
+
 @Component({
   selector: "app-tables",
   templateUrl: "./paciente.component.html",
@@ -18,7 +20,7 @@ import { ThrowStmt } from "@angular/compiler";
 export class PacienteComponent implements OnInit {
   paciente: Paciente;
   pacientes: Observable<any>;
-  estagiarios: Observable<any>;
+  estagiarios: any;
   listaResponsaveis: any[] = [];
   key: string = "";
   campos: boolean = true;
@@ -26,6 +28,10 @@ export class PacienteComponent implements OnInit {
   popoverTitle = "GClin - Faculdade Guairacá";
   popoverMessage = "Deseja realmente exlcuir?";
   popoverMessage2 = "Deseja realmente editar?";
+  dropdownList = [];
+  selectedItems = [];
+  responsaveis_fim: any = [];
+  dropdownSettings = {};
   constructor(
     private _pacienteDataService: PacienteDataService,
     private _pacienteService: PacienteService,
@@ -60,6 +66,23 @@ export class PacienteComponent implements OnInit {
         this.key = data.key;
       }
     });
+
+    //dropdown
+
+    this.estagiarios.forEach(x => {
+      console.log(x);
+      this.dropdownList = x;
+    });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: "keyAuth",
+      textField: "nome",
+      selectAllText: "Selecionar Todos",
+      unSelectAllText: "Remover Seleção",
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
 
   async onSubmit() {
@@ -130,9 +153,20 @@ export class PacienteComponent implements OnInit {
     this._router.navigate(["/evolucao/" + key]);
   }
 
+  irParaAvaliacao(key: string) {
+    this._router.navigate(["/avaliacao/" + key]);
+  }
+
   converte(texto: any) {
     const [keyAuth, nome] = texto.split(" _ ");
     return nome;
+  }
+
+  converte2(resp: any) {
+    resp.forEach(x => {
+      this.responsaveis_fim.push(x.keyAuth + " _ " + x.nome);
+    });
+    return this.responsaveis_fim;
   }
 
   buscaCep(cep: string) {

@@ -1,0 +1,70 @@
+<button
+  style="width: 20%; float:right;  margin: 2%; ;"
+  class="btn btn-primary btn-fill"
+  (click)="voltar()"
+>
+  Voltar</button
+><br /><br />
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-15">
+        <div class="card">
+          <div class="header">
+            <h4 class="title" style=" font-weight: bold;">
+              Evoluções - Paciente: {{ paciente?.nome }}
+            </h4>
+          </div>
+          <div class="content ">
+            <div
+              id="content"
+              style="background-color: white;"
+              *ngIf="listaEvolucoes.length > 0"
+            >
+              <ul class="list-group" *ngFor="let evolucao of listaEvolucoes">
+                <li class="list-group-item list-group-item-light">
+                  <b>Evolução realizada dia: </b>{{ evolucao[1].data }}
+                  <br />
+                  <b>CID: </b>{{ evolucao[1].descricao }} <br />
+                  <b>Setor e Número </b>{{ evolucao[1].setor }} -
+                  {{ evolucao[1].numeroEvolucao }} <br />
+                  <b>Descrição: </b>{{ evolucao[1].descricao }} <br />
+                  <p *ngIf="evolucao[1].aprovacao == false">
+                    <b>Parecer do Supervisor: </b>
+                    <input
+                      style=" width: 75%; "
+                      type="text"
+                      name="parecer"
+                      [(ngModel)]="evolucao[1].parecer"
+                      class="form-control"
+                      placeholder="Se necessário, insira observações aqui"
+                    />
+                    <button
+                      style="width: 20%; float: right; "
+                      class="btn btn-danger btn-fill"
+                      (click)="
+                        aprovar(evolucao[0], evolucao[1], evolucao[1].parecer)
+                      "
+                    >
+                      Aprovar
+                    </button>
+                    <br />
+                  </p>
+
+                  <p *ngIf="evolucao[1].aprovacao == true">
+                    <b>Parecer do Supevisor: </b> APROVADO<br />
+                    <b>Dados da Aprovação: </b>
+                    {{ evolucao[1].dados_aprovacao }}<br />
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="listaEvolucoes.length == 0">
+              Ainda não tem nenhuma evolução registrada
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
