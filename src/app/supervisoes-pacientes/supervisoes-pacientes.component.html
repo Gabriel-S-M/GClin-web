@@ -9,7 +9,10 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-14">
-        <div class="card">
+        <div
+          class="card"
+          *ngIf="this.listaPacientes.length > 0; else listaVazia"
+        >
           <div class="header">
             <div class="row">
               <div class="col-md-5">
@@ -36,6 +39,7 @@
                 <th class="col-md-2">Contato</th>
                 <th class="col-md-4">Dados</th>
               </thead>
+
               <tbody>
                 <tr *ngFor="let paciente of this.listaPacientes">
                   <td class="col-md-4">{{ paciente.nome }}</td>
@@ -72,4 +76,7 @@
       </div>
     </div>
   </div>
+  <ng-template #listaVazia>
+    <p>*Obs: Este estagiário nao possui nenhum paciente cadastrado.</p>
+  </ng-template>
 </div>

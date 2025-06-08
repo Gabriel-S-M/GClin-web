@@ -55,7 +55,7 @@
                     <b>Dados da Aprovação: </b>
                     {{ avaliacao[1].dados_aprovacao }}<br />
                   </p>
-                  <img src="{{ avaliacao[1].dados.url }}" class="img" />
+                  <img [src]="avaliacao[1]?.image?.downloadURL" class="img" />
                 </li>
               </ul>
             </div>

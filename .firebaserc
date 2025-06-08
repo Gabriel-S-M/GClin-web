@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "gclin-89c11"
+    "default": "gclin-89c11",
+    "gclin": "gclin-89c11"
   }
 }

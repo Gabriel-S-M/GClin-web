@@ -8,7 +8,7 @@ import { EvolucaoComponent } from "app/evolucao/evolucao.component";
 import { LoginComponent } from "app/login/login.component";
 import { AuthGuardService } from "app/service/auth-guard.service";
 import { SupervisorComponent } from "app/supervisor/supervisor.component";
-import { AuthGuardService2 } from "app/service/auth-guard.service2";
+
 import { SupervioesComponent } from "app/supervioes/supervioes.component";
 import { SupervisoesPacientesComponent } from "app/supervisoes-pacientes/supervisoes-pacientes.component";
 import { SupervisoesAcolhimentosComponent } from "app/supervisoes-acolhimentos/supervisoes-acolhimentos.component";
@@ -30,8 +30,8 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "paciente",
-    component: PacienteComponent
-    // canActivate: [AuthGuardService]
+    component: PacienteComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "supervisor",
@@ -55,27 +55,27 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "supervisoes/:supervisor",
-    component: SupervioesComponent
-    // canActivate: [AuthGuardService2]
+    component: SupervioesComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "supervisoes-pacientes/:supervisor/:estagiario",
-    component: SupervisoesPacientesComponent
-    // canActivate: [AuthGuardService2]
+    component: SupervisoesPacientesComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "supervisoes-acolhimentos/:supervisor/:estagiario/:key",
-    component: SupervisoesAcolhimentosComponent
-    // canActivate: [AuthGuardService2]
+    component: SupervisoesAcolhimentosComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "supervisoes-avaliacoes/:supervisor/:estagiario/:key",
-    component: SupervisoesAvaliacoesComponent
-    // canActivate: [AuthGuardService2]
+    component: SupervisoesAvaliacoesComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "supervisoes-evolucoes/:supervisor/:estagiario/:key",
-    component: SupervisoesEvolucoesComponent
-    // canActivate: [AuthGuardService2]
+    component: SupervisoesEvolucoesComponent,
+    canActivate: [AuthGuardService]
   }
 ];

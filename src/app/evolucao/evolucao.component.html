@@ -33,7 +33,17 @@
               <ul class="list-group" *ngFor="let evolucao of listaEvolucoes">
                 <li class="list-group-item list-group-item-light">
                   <b>Evolução realizada dia: </b>{{ evolucao.data }} <br />
-                  <b>Descrição: </b>{{ evolucao.descricao }}
+                  <b>Setor: </b>{{ evolucao.setor }} <b> - - Número: </b
+                  >{{ evolucao.numeroEvolucao }}<br />
+                  <b>Descrição: </b>{{ evolucao.descricao }}<br />
+                  <b>CID: </b>{{ evolucao.cid }}<br />
+                  <div *ngIf="evolucao.aprovacao">
+                    <b>Status: </b> Evolução aprovada pelo Supervisor.<br />
+                    <b>Parecer de Aprovação:</b> {{ evolucao.dados_aprovacao }}
+                  </div>
+                  <div *ngIf="!evolucao.aprovacao">
+                    <b>Status: </b> Aguardando Aprovação.<br />
+                  </div>
                 </li>
               </ul>
             </div>

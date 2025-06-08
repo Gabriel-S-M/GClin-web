@@ -28,6 +28,7 @@ export class SupervisoesPacientesComponent implements OnInit {
         this.supervisor = parametros["supervisor"];
         this.pacientes = this._pacienteService.getAll();
         this.listarPacientes();
+        console.log(this.listaPacientes.length);
       }
     });
   }
@@ -39,16 +40,14 @@ export class SupervisoesPacientesComponent implements OnInit {
         this.paciente = paciente;
 
         if (this.paciente.responsaveis) {
-          this.listaResponsaveis = Object.keys(this.paciente.responsaveis).map(
-            x => {
-              const [keyAuth, nome] = this.paciente.responsaveis[x].split(
-                " _ "
-              );
-              if (keyAuth == this.estagiario) {
-                this.listaPacientes.push(this.paciente);
-              }
+          this.listaResponsaveis = Object.entries(
+            this.paciente.responsaveis
+          ).map(x => {
+            let teste: any = x;
+            if (teste[1].keyAuth == this.estagiario) {
+              this.listaPacientes.push(this.paciente);
             }
-          );
+          });
         }
       });
     });

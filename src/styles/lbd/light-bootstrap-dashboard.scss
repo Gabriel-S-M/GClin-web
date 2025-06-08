@@ -13,26 +13,27 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
-@import "lbd/variables";
-@import "lbd/mixins";
+/* Ajuste: Inclua o caminho relativo desde o arquivo light-bootstrap-dashboard.scss */
+@import "variables";
+@import "mixins";
 
-@import "lbd/typography";
+/* Tipografia */
+@import "typography";
 
-// Core CSS
-@import "lbd/misc";
-@import "lbd/sidebar-and-main-panel";
-@import "lbd/buttons";
-@import "lbd/inputs";
+/* Core CSS */
+@import "misc";
+@import "sidebar-and-main-panel";
+@import "buttons";
+@import "inputs";
 
-@import "lbd/alerts";
-@import "lbd/tables";
+@import "alerts";
+@import "tables";
+@import "checkbox-radio-switch";
+@import "navbars";
+@import "footers";
 
-@import "lbd/checkbox-radio-switch";
-@import "lbd/navbars";
-@import "lbd/footers";
-
-// Fancy Stuff
-@import "lbd/dropdown";
-@import "lbd/cards";
-@import "lbd/chartist";
-@import "lbd/responsive";
+/* Fancy Stuff */
+@import "dropdown";
+@import "cards";
+@import "chartist";
+@import "responsive";

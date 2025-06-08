@@ -5,6 +5,14 @@
 >
   Voltar
 </button>
+<button
+  style="width: 20%; float:right;  margin: 2%; ;"
+  class="btn btn-danger btn-fill"
+  (click)="gerarPDF()"
+  [disabled]="listaAvaliacoes.length == 0"
+>
+  Gerar PDF
+</button>
 <br />
 <br />
 <div class="main-content">
@@ -26,6 +34,13 @@
               <ul class="list-group" *ngFor="let avaliacao of listaAvaliacoes">
                 <li class="list-group-item list-group-item-light">
                   <b>Avaliação do setor: </b>{{ avaliacao.setor }} <br />
+                  <div *ngIf="avaliacao.aprovacao">
+                    <b>Status: </b> Avaliação aprovada pelo Supervisor.<br />
+                    <b>Parecer de Aprovação:</b> {{ avaliacao.dados_aprovacao }}
+                  </div>
+                  <div *ngIf="!avaliacao.aprovacao">
+                    <b>Status: </b> Aguardando Aprovação.<br />
+                  </div>
                   <img src="{{ avaliacao.dados.url }}" class="img" />
                 </li>
               </ul>

@@ -1,74 +1,80 @@
 import { Injectable } from "@angular/core";
 import { Estagiario } from "./estagiario";
-import { AngularFireDatabase } from "angularfire2/database";
+import { Database, getDatabase, ref, push, update, remove, child, get, query, orderByChild, equalTo } from "@angular/fire/database";
+import { Auth, createUserWithEmailAndPassword } from "@angular/fire/auth";
 import { map } from "rxjs/operators";
-import "rxjs/add/operator/map";
-import { AngularFireAuth } from "@angular/fire/auth";
+import { from, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class EstagiarioService {
-  user: any;
+  private db: Database;
+
   constructor(
-    private _angularFireDatabase: AngularFireDatabase,
-    public afAuth: AngularFireAuth
-  ) {}
+    private auth: Auth
+  ) {
+    this.db = getDatabase();
+  }
 
   insert(estagiario: Estagiario) {
-    this.afAuth.auth
-      .createUserWithEmailAndPassword(estagiario.email, estagiario.senha)
-      .then(c => {
-        estagiario.keyAuth = this.afAuth.auth.currentUser.uid;
-        this._angularFireDatabase
-          .list("estagiarios")
-          .push(estagiario)
-          .then((result: any) => {
-            // console.log(result.key);
-          });
-      })
-      .catch(() => {
-        alert("Esse email já foi utilizado!");
-      });
+    return from(
+      createUserWithEmailAndPassword(this.auth, estagiario.email, estagiario.senha)
+        .then(c => {
+          const uid = c.user?.uid;
+          if (uid) {
+            estagiario.keyAuth = uid;
+            const estagiariosRef = ref(this.db, "estagiarios");
+            return push(estagiariosRef, estagiario);
+          }
+        })
+        .catch(() => {
+          alert("Esse email já foi utilizado!");
+        })
+    );
   }
 
   update(estagiario: Estagiario, key: string) {
-    this._angularFireDatabase.list("estagiarios").update(key, estagiario);
+    const estagiarioRef = ref(this.db, `estagiarios/${key}`);
+    return from(update(estagiarioRef, estagiario as any));
   }
 
-  getAll() {
-    return this._angularFireDatabase
-      .list("estagiarios")
-      .snapshotChanges()
-      .pipe(
-        map(changes => {
-          return changes.map(data => ({
-            key: data.payload.key,
-            ...data.payload.val()
-          }));
-        })
-      );
+  getAll(): Observable<any[]> {
+    const estagiariosRef = ref(this.db, "estagiarios");
+    return from(get(estagiariosRef)).pipe(
+      map(snapshot => {
+        const data = snapshot.val();
+        return data ? Object.keys(data).map(key => ({ key, ...data[key] })) : [];
+      })
+    );
   }
 
-  buscarTodos(email: string) {
-    return this._angularFireDatabase
-      .list("estagiarios", ref => ref.orderByChild("supervisor").equalTo(email))
-      .snapshotChanges()
-      .map(changes => {
-        return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-      });
+  buscarTodos(email: string): Observable<any[]> {
+    const estagiariosQuery = query(
+      ref(this.db, "estagiarios"),
+      orderByChild("supervisor"),
+      equalTo(email)
+    );
+    return from(get(estagiariosQuery)).pipe(
+      map(snapshot => {
+        const data = snapshot.val();
+        return data ? Object.keys(data).map(key => ({ key, ...data[key] })) : [];
+      })
+    );
   }
 
-  get(key: String) {
-    return this._angularFireDatabase
-      .object("estagiarios/" + key)
-      .snapshotChanges()
-      .map(c => {
-        return { key: c.payload.key, ...c.payload.val() };
-      });
+  get(key: string): Observable<any> {
+    const estagiarioRef = ref(this.db, `estagiarios/${key}`);
+    return from(get(estagiarioRef)).pipe(
+      map(snapshot => ({
+        key: snapshot.key,
+        ...snapshot.val()
+      }))
+    );
   }
 
   delete(key: string) {
-    this._angularFireDatabase.object(`estagiarios/${key}`).remove();
+    const estagiarioRef = ref(this.db, `estagiarios/${key}`);
+    return from(remove(estagiarioRef));
   }
 }

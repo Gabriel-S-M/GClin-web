@@ -4,13 +4,8 @@ import { PacienteDataService } from "app/service/paciente-data.service";
 import { Paciente } from "app/service/paciente";
 import { EstagiarioService } from "app/service/estagiario.service";
 import { Observable } from "rxjs";
-
-import "rxjs/add/observable/of";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-import { ThrowStmt } from "@angular/compiler";
-
-import { IDropdownSettings } from "ng-multiselect-dropdown";
 
 @Component({
   selector: "app-tables",
@@ -25,6 +20,8 @@ export class PacienteComponent implements OnInit {
   key: string = "";
   campos: boolean = true;
   sucesso: boolean = false;
+  sucesso2: boolean = false;
+  carregando: boolean = false;
   popoverTitle = "GClin - Faculdade Guairacá";
   popoverMessage = "Deseja realmente exlcuir?";
   popoverMessage2 = "Deseja realmente editar?";
@@ -32,6 +29,7 @@ export class PacienteComponent implements OnInit {
   selectedItems = [];
   responsaveis_fim: any = [];
   dropdownSettings = {};
+
   constructor(
     private _pacienteDataService: PacienteDataService,
     private _pacienteService: PacienteService,
@@ -42,35 +40,17 @@ export class PacienteComponent implements OnInit {
 
   ngOnInit() {
     this.paciente = new Paciente();
-    this.pacientes = this._pacienteService.getAll();
+    this.loadPacientes();
     this.estagiarios = this._estagiarioService.getAll();
 
     this._pacienteDataService.pacienteAtual.subscribe(data => {
       if (data.paciente && data.key) {
-        this.paciente = new Paciente();
-        this.paciente.nome = data.paciente.nome;
-        this.paciente.cpf = data.paciente.cpf;
-        this.paciente.rg = data.paciente.rg;
-        this.paciente.nascimento = data.paciente.nascimento;
-        this.paciente.sus = data.paciente.sus;
-        this.paciente.pai = data.paciente.pai;
-        this.paciente.mae = data.paciente.mae;
-        this.paciente.cep = data.paciente.cep;
-        this.paciente.rua = data.paciente.rua;
-        this.paciente.numero = data.paciente.numero;
-        this.paciente.cidade = data.paciente.cidade;
-        this.paciente.bairro = data.paciente.bairro;
-        this.paciente.contato = data.paciente.contato;
-        this.paciente.responsaveis = data.paciente.responsaveis;
-
+        this.paciente = { ...data.paciente };
         this.key = data.key;
       }
     });
 
-    //dropdown
-
     this.estagiarios.forEach(x => {
-      console.log(x);
       this.dropdownList = x;
     });
 
@@ -83,6 +63,10 @@ export class PacienteComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+  }
+
+  loadPacientes() {
+    this.pacientes = this._pacienteService.getAll();
   }
 
   async onSubmit() {
@@ -112,16 +96,21 @@ export class PacienteComponent implements OnInit {
       this.paciente.nascimento != null &&
       this.paciente.numero != null
     ) {
+      this.carregando = true;
       if (this.key) {
-        this._pacienteService.update(paciente, this.key);
+        await this._pacienteService.update(paciente, this.key);
       } else {
-        this._pacienteService.insert(paciente);
+        await this._pacienteService.insert(paciente);
       }
+
+      this.loadPacientes();
+      this.paciente = new Paciente();
+      this.key = null;
       this.sucesso = true;
       await this.delay(3000);
       this.sucesso = false;
-      this.paciente = new Paciente();
-      this.key = null;
+      this.carregando = false;
+      this.scrollToTop();
     } else {
       this.campos = false;
       await this.delay(3000);
@@ -129,16 +118,15 @@ export class PacienteComponent implements OnInit {
     }
   }
 
-  private delay(ms: number): Promise<boolean> {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(true);
-      }, ms);
-    });
-  }
-
-  delete(key: string) {
-    this._pacienteService.delete(key);
+  async delete(key: string) {
+    this.carregando = true;
+    await this._pacienteService.delete(key);
+    this.loadPacientes();
+    this.sucesso2 = true;
+    await this.delay(3000);
+    this.sucesso2 = false;
+    this.carregando = false;
+    this.scrollToTop();
   }
 
   edit(paciente: Paciente, key: string) {
@@ -170,18 +158,29 @@ export class PacienteComponent implements OnInit {
   }
 
   buscaCep(cep: string) {
-    console.log("teste");
     if (cep !== " ") {
       const validaCep = /^[0-9]{8}$/;
       if (validaCep.test(cep)) {
         this._http.get(`//viacep.com.br/ws/${cep}/json`).subscribe(dados => {
           let dadosQuebrados = JSON.parse(JSON.stringify(dados));
-          console.log(dadosQuebrados.logradouro);
           this.paciente.rua = dadosQuebrados.logradouro;
           this.paciente.bairro = dadosQuebrados.bairro;
           this.paciente.cidade = dadosQuebrados.localidade;
         });
       }
+    }
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private scrollToTop(): void {
+    const mainPanel = document.querySelector('.main-panel');
+    if (mainPanel) {
+      mainPanel.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 }

@@ -1,11 +1,14 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="alert alert-danger" *ngIf="!campos" role="alert">
-      Erro ao cadastrar estagiário! Todos os campos são obrigatórios! Preencha e
-      tente novamente!
+      Erro ao cadastrar/editar estagiário! Todos os campos são obrigatórios!
+      Preencha e tente novamente!
+    </div>
+    <div class="alert alert-danger" *ngIf="sucesso2" role="alert">
+      Estagiario excluído com sucesso!
     </div>
     <div class="alert alert-success" *ngIf="sucesso" role="alert">
-      Cadastro efetuado com sucesso!
+      Cadastro/Edição efetuado(a) com sucesso!
     </div>
 
     <div class="row">
@@ -138,13 +141,16 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-13">
+      <div class="col-md-15" style="width: 54rem; max-width: 54rem;">
         <div class="card">
           <div class="header">
             <h4 class="title">Lista de Estagiários</h4>
           </div>
           <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
+            <div *ngIf="carregando" class="alert alert-info text-center">
+              <strong>Atualizando lista...</strong>
+            </div>
+            <table class="table table-hover table-striped" *ngIf="!carregando">
               <thead>
                 <th class="col-md-4">Nome</th>
                 <th class="col-md-3">Curso</th>

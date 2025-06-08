@@ -4,28 +4,26 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { AuthGuardService } from "./service/auth-guard.service";
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "login",
-    pathMatch: "full"
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
-    path: "",
+    path: '',
     component: AdminLayoutComponent,
     children: [
       {
-        path: "",
-        loadChildren:
-          "./layouts/admin-layout/admin-layout.module#AdminLayoutModule"
+        path: '',
+        loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
       }
     ]
   },
   {
-    path: "**",
-    redirectTo: "login"
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 
@@ -37,6 +35,6 @@ const routes: Routes = [
       useHash: true
     })
   ],
-  exports: []
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

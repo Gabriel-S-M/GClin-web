@@ -20,6 +20,7 @@ import { SupervisoesAvaliacoesComponent } from "app/supervisoes-avaliacoes/super
 import { SupervisoesEvolucoesComponent } from "app/supervisoes-evolucoes/supervisoes-evolucoes.component";
 import { AvaliacaoComponent } from "app/avaliacao/avaliacao.component";
 import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
+
 @NgModule({
   imports: [
     CommonModule,

@@ -2,14 +2,14 @@
   Login ou Senha Incorretas! Tente Novamente! <br />
   Se o erro persistir entre em contato com o desenvolvedor!
 </div>
-<div class="container" style="margin-left: 15vw;">
+<div class="container">
   <div class="row">
-    <div class="col-sm-9 col-md-7 col-lg-6 mx-auto">
+    <div class="col-sm-9 col-md-7 mx-auto" style="max-width: fit-content;">
       <div class="card card-signin my-5">
         <div class="card-body">
           <img
             src="/assets/img/app-clinica.png"
-            style="width: 20vw; margin-left: 10vw;"
+            style="width: 20vw; max-width: 20rem; min-width: 13rem;"
           />
           <div class="form-group">
             <label for="exampleInputEmail1">Login</label>
@@ -33,7 +33,7 @@
           <button
             type="submit"
             class="btn btn-primary btn-lg"
-            style="margin-left: 15vw;"
+            style="margin: 5px;"
             (click)="logar()"
           >
             Entrar

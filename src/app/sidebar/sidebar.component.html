@@ -1,25 +1,27 @@
 <div class="sidebar-wrapper" *ngIf="mostrarMenu">
-  <div class="logo" style="height: 24vh;">
+  <div class="logo" style="height: 18vh; max-height: 18vh; align-items: center; justify-content: start;">
     <div class="logo-img">
-      <img src="/assets/img/app-clinica.png" style="width: 17vw;" />
+      <img src="/assets/img/app-clinica.png" style="width: 17vw; max-width: 15rem; min-width: 10rem;" />
     </div>
   </div>
-  <ul class="nav responsive-nav">
-    <li *ngIf="isMobileMenu()">
+  <ul class="nav responsive-nav" style="justify-content: start; display: flex; flex-wrap: wrap; flex-direction: column;">
+    <li>
       <a (click)="logout()">
         <p>Sair</p>
       </a>
     </li>
-    <li class="separator hidden-lg hidden-md" *ngIf="isMobileMenu()"></li>
-    <li
-      routerLinkActive="active"
-      *ngFor="let menuItem of menuItems"
-      class="{{ menuItem.class }}"
-    >
-      <a [routerLink]="[menuItem.path]">
-        <i class="{{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
-      </a>
-    </li>
+    <li class="separator hidden-lg hidden-md"></li>
+    <div *ngIf="mostrarMenuAdm">
+      <li
+        routerLinkActive="active"
+        *ngFor="let menuItem of menuItems"
+        class="{{ menuItem.class }}"
+      >
+        <a [routerLink]="[menuItem.path]">
+          <i class="{{ menuItem.icon }}"></i>
+          <p>{{ menuItem.title }}</p>
+        </a>
+      </li>
+    </div>
   </ul>
 </div>

@@ -1,0 +1,17 @@
+tr {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+td {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

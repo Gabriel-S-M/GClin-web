@@ -1,13 +1,17 @@
-<div class="main-content">
+<div class="main-content" #scrollContainer>
   <div class="container-fluid">
     <div class="alert alert-danger" *ngIf="!campos" role="alert">
       Erro ao cadastrar supervisor! Todos os campos são obrigatórios! Preencha e
       tente novamente!
     </div>
+    <div class="alert alert-danger" *ngIf="sucesso2" role="alert">
+      Supervisor excluído com sucesso!
+    </div>
     <div class="alert alert-success" *ngIf="sucesso" role="alert">
       Cadastro efetuado com sucesso!
     </div>
 
+    <!-- Formulário -->
     <div class="row">
       <div class="col-md-15">
         <div class="card">
@@ -16,6 +20,7 @@
           </div>
           <div class="content">
             <form (ngSubmit)="onSubmit()">
+              <!-- Campos do Formulário -->
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
@@ -65,14 +70,13 @@
                       [(ngModel)]="supervisor.contato"
                       class="form-control"
                       placeholder="Insira o contato aqui"
-                      mask="(00) 000000000"
                     />
                   </div>
                 </div>
               </div>
 
               <button
-                style=" width: 20%"
+                style="width: 20%;"
                 type="submit"
                 class="btn btn-info btn-fill pull-right"
               >
@@ -86,15 +90,22 @@
     </div>
   </div>
 
+  <!-- Lista de Supervisores -->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-13">
+      <div class="col-md-13" style="width: 56rem; max-width: 56rem;">
         <div class="card">
           <div class="header">
-            <h4 class="title">Lista de Supevisores</h4>
+            <h4 class="title">Lista de Supervisores</h4>
           </div>
           <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
+            <!-- Mensagem de carregamento -->
+            <div *ngIf="carregando" class="alert alert-info text-center">
+              <strong>Atualizando lista...</strong>
+            </div>
+
+            <!-- Tabela de Supervisores -->
+            <table class="table table-hover table-striped" *ngIf="!carregando">
               <thead>
                 <th class="col-md-4">Nome</th>
                 <th class="col-md-3">Email</th>
@@ -108,7 +119,7 @@
                   <td class="col-md-2">{{ supervisor.contato }}</td>
                   <td class="col-md-4">
                     <button
-                      style=" width: 49%"
+                      style="width: 49%;"
                       class="btn btn-success btn-fill"
                       mwlConfirmationPopover
                       placement="left"
@@ -120,7 +131,7 @@
                       Editar
                     </button>
                     <button
-                      style="margin-left: 2%; width: 49%"
+                      style="margin-left: 2%; width: 49%;"
                       class="btn btn-danger btn-fill"
                       mwlConfirmationPopover
                       placement="left"

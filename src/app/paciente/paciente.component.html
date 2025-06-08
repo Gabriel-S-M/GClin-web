@@ -1,11 +1,14 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="alert alert-danger" *ngIf="!campos" role="alert">
-      Erro ao cadastrar paciente! Todos os campos são obrigatórios! Preencha e
-      tente novamente!
+      Erro ao cadastrar/editar paciente! Todos os campos são obrigatórios!
+      Preencha e tente novamente!
+    </div>
+    <div class="alert alert-danger" *ngIf="sucesso2" role="alert">
+      Paciente excluído com sucesso!
     </div>
     <div class="alert alert-success" *ngIf="sucesso" role="alert">
-      Cadastro efetuado com sucesso!
+      Cadastro/Edição efetuado(a) com sucesso!
     </div>
 
     <div class="row">
@@ -189,30 +192,17 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Estagiário Responsável - Selecione</label>
-                    <!-- <select
-                      multiple="true"
-                      class="form-control"
-                      name="responsavel"
+                    <label>Estagiário(s) Responsável(eis)</label>
+                    <ng-multiselect-dropdown
+                      [placeholder]="'Selecione'"
+                      [data]="dropdownList"
                       [(ngModel)]="paciente.responsaveis"
+                      name="paciente.responsaveis"
+                      [settings]="dropdownSettings"
                     >
-                      <option
-                        *ngFor="let estagiario of estagiarios | async"
-                        value="{{ estagiario.keyAuth }} _ {{ estagiario.nome }}"
-                      >
-                        {{ estagiario.nome }}
-                      </option>
-                    </select> -->
+                    </ng-multiselect-dropdown>
                   </div>
                 </div>
-                <ng-multiselect-dropdown
-                  [placeholder]="'Selecione'"
-                  [data]="dropdownList"
-                  [(ngModel)]="paciente.responsaveis"
-                  name="paciente.responsaveis"
-                  [settings]="dropdownSettings"
-                >
-                </ng-multiselect-dropdown>
               </div>
 
               <button
@@ -239,22 +229,14 @@
               <div class="col-md-5">
                 <h4 class="title">Lista de Pacientes</h4>
               </div>
-
-              <div class="col-md-5">
-                <input
-                  style=" width: 100%; "
-                  type="text"
-                  name="busca"
-                  [(ngModel)]="busca"
-                  class="form-control"
-                  placeholder="Insira o nome do paciente aqui"
-                />
-              </div>
             </div>
             <br />
           </div>
           <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
+            <div *ngIf="carregando" class="alert alert-info text-center">
+              <strong>Atualizando lista...</strong>
+            </div>
+            <table class="table table-hover table-striped" *ngIf="!carregando">
               <thead>
                 <th class="col-md-3">Nome</th>
                 <th class="col-md-2">Contato</th>
@@ -268,13 +250,13 @@
                   <td class="col-md-3">
                     <ul>
                       <li *ngFor="let resp of paciente.responsaveis">
-                        {{ resp.nome }}
+                        {{ resp?.nome || resp }}
                       </li>
                     </ul>
                   </td>
                   <td class="col-md-4">
                     <button
-                      style=" width: 10vw; margin-right: 2%; margin-bottom: 2%"
+                      style=" width: 35%; margin-right: 2%; margin-bottom: 2%"
                       class="btn btn-success btn-fill"
                       mwlConfirmationPopover
                       placement="left"
@@ -286,7 +268,7 @@
                       Editar
                     </button>
                     <button
-                      style="width: 10vw; margin-right: 2%; margin-bottom: 2%"
+                      style="width: 35%; margin-right: 2%; margin-bottom: 2%"
                       class="btn btn-danger btn-fill"
                       mwlConfirmationPopover
                       placement="left"
@@ -298,21 +280,21 @@
                       Excluir
                     </button>
                     <button
-                      style=" width: 10vw; margin-right: 2%; margin-bottom: 2%"
+                      style=" width: 35%; margin-right: 2%; margin-bottom: 2%"
                       class="btn btn-primary btn-fill"
                       (click)="irParaAcolhimento(paciente.key)"
                     >
                       Acolhimento
                     </button>
                     <button
-                      style=" width: 10vw; margin-right: 2%; margin-bottom: 2%"
+                      style=" width: 35%; margin-right: 2%; margin-bottom: 2%"
                       class="btn btn-secondary btn-fill"
                       (click)="irParaEvolucao(paciente.key)"
                     >
                       Evolução
                     </button>
                     <button
-                      style=" width: 10vw; margin-right: 2%; margin-bottom: 2%"
+                      style=" width: 35%; margin-right: 2%; margin-bottom: 2%"
                       class="btn btn-warning btn-fill"
                       (click)="irParaAvaliacao(paciente.key)"
                     >

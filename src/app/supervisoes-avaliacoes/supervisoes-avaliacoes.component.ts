@@ -9,8 +9,7 @@ import { PacienteService } from "app/service/paciente.service";
 })
 export class SupervisoesAvaliacoesComponent implements OnInit {
   key: string;
-  pacientes: any;
-  paciente: any;
+  paciente: any = null;
   listaAvaliacoes: any[] = [];
   supervisor: any;
   estagiario: any;
@@ -23,41 +22,35 @@ export class SupervisoesAvaliacoesComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(parametros => {
-      if (
-        parametros["key"] &&
-        parametros["supervisor"] &&
-        parametros["estagiario"]
-      ) {
+      if (parametros["key"] && parametros["supervisor"] && parametros["estagiario"]) {
         this.key = parametros["key"];
-        this.pacientes = this._pacienteService.get(this.key);
         this.supervisor = parametros["supervisor"];
         this.estagiario = parametros["estagiario"];
-        this.pacientes.forEach(x => {
-          const lista = x as Array<any>;
 
-          lista.forEach(paciente => {
-            this.paciente = paciente;
-
+        // Correção: usar subscribe no Observable
+        this._pacienteService.get(this.key).subscribe(lista => {
+          if (lista && lista.length > 0) {
+            this.paciente = lista[0];
             if (this.paciente.avaliacoes) {
+              // Transforma avaliações em array para iteração
               this.listaAvaliacoes = Object.entries(this.paciente.avaliacoes);
             }
-          });
+          } else {
+            this.listaAvaliacoes = [];
+          }
         });
       }
     });
   }
+
   voltar() {
-    console.log(this.key);
-    this._router.navigate([
-      "/supervisoes-pacientes/",
-      this.supervisor,
-      this.estagiario
-    ]);
+    this._router.navigate(["/supervisoes-pacientes/", this.supervisor, this.estagiario]);
   }
 
   aprovar(keyAvaliacao, avaliacao, parecer) {
+    if (!avaliacao) return; // segurança extra
     avaliacao.aprovacao = true;
-    avaliacao.dados_aprovacao = parecer;
+    avaliacao.dados_aprovacao = parecer || "Sem observações";
     this._pacienteService.updateAvaliacao(this.key, keyAvaliacao, avaliacao);
   }
 }
