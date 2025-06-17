@@ -1,6 +1,19 @@
 import { Injectable } from "@angular/core";
 import { Estagiario } from "./estagiario";
-import { Database, getDatabase, ref, push, update, remove, child, get, query, orderByChild, equalTo } from "@angular/fire/database";
+import {
+  Database,
+  getDatabase,
+  ref,
+  push,
+  update,
+  remove,
+  child,
+  get,
+  query,
+  orderByChild,
+  equalTo,
+  onValue
+} from "@angular/fire/database";
 import { Auth, createUserWithEmailAndPassword } from "@angular/fire/auth";
 import { map } from "rxjs/operators";
 import { from, Observable } from "rxjs";
@@ -11,9 +24,7 @@ import { from, Observable } from "rxjs";
 export class EstagiarioService {
   private db: Database;
 
-  constructor(
-    private auth: Auth
-  ) {
+  constructor(private auth: Auth) {
     this.db = getDatabase();
   }
 
@@ -39,14 +50,20 @@ export class EstagiarioService {
     return from(update(estagiarioRef, estagiario as any));
   }
 
+  // 🔥 Atualização em tempo real
   getAll(): Observable<any[]> {
     const estagiariosRef = ref(this.db, "estagiarios");
-    return from(get(estagiariosRef)).pipe(
-      map(snapshot => {
+    return new Observable(observer => {
+      const unsubscribe = onValue(estagiariosRef, snapshot => {
         const data = snapshot.val();
-        return data ? Object.keys(data).map(key => ({ key, ...data[key] })) : [];
-      })
-    );
+        const estagiarios = data
+          ? Object.keys(data).map(key => ({ key, ...data[key] }))
+          : [];
+        observer.next(estagiarios);
+      });
+
+      return { unsubscribe };
+    });
   }
 
   buscarTodos(email: string): Observable<any[]> {

@@ -15,20 +15,33 @@ import { HttpClient } from "@angular/common/http";
 export class PacienteComponent implements OnInit {
   paciente: Paciente;
   pacientes: Observable<any>;
+  pacientesArray: any[] = [];
+
   estagiarios: any;
   listaResponsaveis: any[] = [];
   key: string = "";
+
+  // Alertas
   campos: boolean = true;
   sucesso: boolean = false;
   sucesso2: boolean = false;
   carregando: boolean = false;
+
+  // Mensagens popover
   popoverTitle = "GClin - Faculdade Guairacá";
-  popoverMessage = "Deseja realmente exlcuir?";
+  popoverMessage = "Deseja realmente excluir?";
   popoverMessage2 = "Deseja realmente editar?";
+
+  // Dropdown
   dropdownList = [];
   selectedItems = [];
   responsaveis_fim: any = [];
   dropdownSettings = {};
+
+  // Busca e Paginação
+  searchTerm: string = "";
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(
     private _pacienteDataService: PacienteDataService,
@@ -44,7 +57,7 @@ export class PacienteComponent implements OnInit {
     this.estagiarios = this._estagiarioService.getAll();
 
     this._pacienteDataService.pacienteAtual.subscribe(data => {
-      if (data.paciente && data.key) {
+      if (data?.paciente && data?.key) {
         this.paciente = { ...data.paciente };
         this.key = data.key;
       }
@@ -66,7 +79,12 @@ export class PacienteComponent implements OnInit {
   }
 
   loadPacientes() {
+    this.carregando = true;
     this.pacientes = this._pacienteService.getAll();
+    this.pacientes.subscribe(data => {
+      this.pacientesArray = data;
+      this.carregando = false;
+    });
   }
 
   async onSubmit() {
@@ -78,23 +96,23 @@ export class PacienteComponent implements OnInit {
         this.paciente.contato.substring(2);
     }
 
-    let paciente: Paciente = { ...this.paciente };
+    const paciente: Paciente = { ...this.paciente };
 
     if (
-      this.paciente.nome != null &&
-      this.paciente.contato != null &&
-      this.paciente.responsaveis != null &&
-      this.paciente.bairro != null &&
-      this.paciente.cep != null &&
-      this.paciente.cidade != null &&
-      this.paciente.mae != null &&
-      this.paciente.rua != null &&
-      this.paciente.pai != null &&
-      this.paciente.cpf != null &&
-      this.paciente.sus != null &&
-      this.paciente.rg != null &&
-      this.paciente.nascimento != null &&
-      this.paciente.numero != null
+      this.paciente.nome &&
+      this.paciente.contato &&
+      this.paciente.responsaveis &&
+      this.paciente.bairro &&
+      this.paciente.cep &&
+      this.paciente.cidade &&
+      this.paciente.mae &&
+      this.paciente.rua &&
+      this.paciente.pai &&
+      this.paciente.cpf &&
+      this.paciente.sus &&
+      this.paciente.rg &&
+      this.paciente.nascimento &&
+      this.paciente.numero
     ) {
       this.carregando = true;
       if (this.key) {
@@ -105,7 +123,7 @@ export class PacienteComponent implements OnInit {
 
       this.loadPacientes();
       this.paciente = new Paciente();
-      this.key = null;
+      this.key = "";
       this.sucesso = true;
       await this.delay(3000);
       this.sucesso = false;
@@ -133,6 +151,7 @@ export class PacienteComponent implements OnInit {
     this._pacienteDataService.obtemPaciente(paciente, key);
   }
 
+  // Navegação
   irParaAcolhimento(key: string) {
     this._router.navigate(["/acolhimento/" + key]);
   }
@@ -145,6 +164,7 @@ export class PacienteComponent implements OnInit {
     this._router.navigate(["/avaliacao/" + key]);
   }
 
+  // Conversões para dropdown
   converte(texto: any) {
     const [keyAuth, nome] = texto.split(" _ ");
     return nome;
@@ -157,6 +177,7 @@ export class PacienteComponent implements OnInit {
     return this.responsaveis_fim;
   }
 
+  // Busca CEP
   buscaCep(cep: string) {
     if (cep !== " ") {
       const validaCep = /^[0-9]{8}$/;
@@ -171,6 +192,31 @@ export class PacienteComponent implements OnInit {
     }
   }
 
+  // 🔥 ===== BUSCA E PAGINAÇÃO =====
+
+  get filteredPacientes() {
+    let filtered = this.pacientesArray.filter(paciente =>
+      paciente.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return filtered.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  get totalPages() {
+    const filteredCount = this.pacientesArray.filter(paciente =>
+      paciente.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
+    ).length;
+    return Math.ceil(filteredCount / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // 🔧 Utils
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }

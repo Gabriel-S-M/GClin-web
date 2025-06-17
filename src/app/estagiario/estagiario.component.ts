@@ -13,6 +13,7 @@ import { SupervisorService } from "app/service/supervisor.service";
 export class EstagiarioComponent implements OnInit {
   estagiario: Estagiario;
   estagiarios: Observable<any>;
+  estagiariosArray: any[] = []; // Array para paginação e busca
   supervisores: Observable<any>;
   key: string = "";
   campos: boolean = true;
@@ -22,6 +23,11 @@ export class EstagiarioComponent implements OnInit {
   popoverTitle = "GClin - Faculdade Guairacá";
   popoverMessage = "Deseja realmente excluir?";
   popoverMessage2 = "Deseja realmente editar?";
+
+  // 🔎 Busca e Paginação
+  searchTerm: string = "";
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(
     private _estagiarioService: EstagiarioService,
@@ -35,7 +41,7 @@ export class EstagiarioComponent implements OnInit {
     this.supervisores = this._supervisorService.getAll();
 
     this._estagiarioDataService.estagiarioAtual.subscribe(data => {
-      if (data.estagiario && data.key) {
+      if (data?.estagiario && data?.key) {
         this.estagiario = { ...data.estagiario };
         this.key = data.key;
       }
@@ -43,7 +49,12 @@ export class EstagiarioComponent implements OnInit {
   }
 
   loadEstagiarios() {
+    this.carregando = true;
     this.estagiarios = this._estagiarioService.getAll();
+    this.estagiarios.subscribe(data => {
+      this.estagiariosArray = data;
+      this.carregando = false;
+    });
   }
 
   async onSubmit() {
@@ -76,7 +87,7 @@ export class EstagiarioComponent implements OnInit {
 
       this.loadEstagiarios();
       this.estagiario = new Estagiario();
-      this.key = null;
+      this.key = "";
       this.sucesso = true;
       await this.delay(3000);
       this.sucesso = false;
@@ -104,16 +115,41 @@ export class EstagiarioComponent implements OnInit {
     this._estagiarioDataService.obtemEstagiario(estagiario, key);
   }
 
+  // 🔥 ========== BUSCA E PAGINAÇÃO ==========
+
+  get filteredEstagiarios() {
+    let filtered = this.estagiariosArray.filter(estagiario =>
+      estagiario.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return filtered.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  get totalPages() {
+    const filteredCount = this.estagiariosArray.filter(estagiario =>
+      estagiario.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
+    ).length;
+    return Math.ceil(filteredCount / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // 🔧 Funções auxiliares
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   private scrollToTop(): void {
-    const mainPanel = document.querySelector('.main-panel');
+    const mainPanel = document.querySelector(".main-panel");
     if (mainPanel) {
-      mainPanel.scrollTo({ top: 0, behavior: 'smooth' });
+      mainPanel.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
 }

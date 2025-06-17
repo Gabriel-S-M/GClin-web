@@ -233,6 +233,33 @@
             <br />
           </div>
           <div class="content table-responsive table-full-width">
+
+            <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por nome" class="form-control" style="margin-bottom: 10px; width: 50%; margin-left: 5px;" />
+
+            <nav *ngIf="totalPages > 1">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="changePage(currentPage - 1)">
+                    &#9664;
+                  </a>
+                </li>
+                <li
+                  class="page-item"
+                  *ngFor="let page of [].constructor(totalPages); let i = index"
+                  [class.active]="currentPage === i + 1"
+                >
+                  <a class="page-link" (click)="changePage(i + 1)">
+                    {{ i + 1 }}
+                  </a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="changePage(currentPage + 1)">
+                    &#9654;
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
             <div *ngIf="carregando" class="alert alert-info text-center">
               <strong>Atualizando lista...</strong>
             </div>
@@ -244,7 +271,7 @@
                 <th class="col-md-4">Operações</th>
               </thead>
               <tbody>
-                <tr *ngFor="let paciente of pacientes | async">
+                <tr *ngFor="let paciente of filteredPacientes">
                   <td class="col-md-3">{{ paciente.nome }}</td>
                   <td class="col-md-2">{{ paciente.contato }}</td>
                   <td class="col-md-3">
@@ -263,9 +290,8 @@
                       [popoverTitle]="popoverTitle"
                       [popoverMessage]="popoverMessage2"
                       (confirm)="edit(paciente, paciente.key)"
-                      (cancel)="cancelClicked = true"
-                    >
-                      Editar
+                      (cancel)="cancelClicked = true">
+                      <i class="fa fa-pencil"></i>
                     </button>
                     <button
                       style="width: 35%; margin-right: 2%; margin-bottom: 2%"
@@ -275,9 +301,8 @@
                       [popoverTitle]="popoverTitle"
                       [popoverMessage]="popoverMessage"
                       (confirm)="delete(paciente.key)"
-                      (cancel)="cancelClicked = true"
-                    >
-                      Excluir
+                      (cancel)="cancelClicked = true">
+                      <i class="fa fa-trash"></i>
                     </button>
                     <button
                       style=" width: 35%; margin-right: 2%; margin-bottom: 2%"
@@ -305,6 +330,30 @@
                 </tr>
               </tbody>
             </table>
+            
+            <nav *ngIf="totalPages > 1">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="changePage(currentPage - 1)">
+                    &#9664;
+                  </a>
+                </li>
+                <li
+                  class="page-item"
+                  *ngFor="let page of [].constructor(totalPages); let i = index"
+                  [class.active]="currentPage === i + 1"
+                >
+                  <a class="page-link" (click)="changePage(i + 1)">
+                    {{ i + 1 }}
+                  </a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="changePage(currentPage + 1)">
+                    &#9654;
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
