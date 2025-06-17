@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from './service/login.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { InactivityService } from './service/inactivity.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router, private inactivityService: InactivityService) {}
 
   ngOnInit(): void {
     this.loginService.checkAutenticacao();
@@ -24,6 +25,20 @@ export class AppComponent implements OnInit {
         localStorage.setItem("lastRoute", event.urlAfterRedirects);
       });
   }
+  
+  verificarExpiracaoStorage(): void {
+    const expiration = localStorage.getItem('expirationTime');
+    const agora = Date.now();
+
+    if (expiration && agora > parseInt(expiration)) {
+      console.log('⚠️ Tempo expirado mesmo após fechar o navegador. Limpando localStorage.');
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    } else {
+      console.log('✅ Dados válidos. Continuando...');
+    }
+  }
+
 
   restaurarEstadoSidebar(): void {
     const mostrarMenuAdm = localStorage.getItem("mostrarMenuAdm");
